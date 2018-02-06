@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "cbaubles",
+    "name": "AutoFishing",
+    "description": "AutoFishing Mod , Copyright (c) 2018 Himmelt.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/Himmelt/AutoFishing",
+    "updateUrl": "https://github.com/Himmelt/AutoFishing/releases",
+    "authorList": [
+      "Himmelt"
+    ],
+    "credits": "Himmelt, making this mod.",
+    "screenshots": [],
+    "dependencies": [
+      "baubles"
+    ]
+  }
+]
