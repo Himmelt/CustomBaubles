@@ -1,8 +1,8 @@
 package org.soraworld.cbaubles.items;
 
-import baubles.api.BaubleType;
-import baubles.api.BaublesApi;
-import baubles.api.IBauble;
+import com.azanor.baubles.api.BaubleType;
+import com.azanor.baubles.api.BaublesApi;
+import com.azanor.baubles.api.IBauble;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -69,7 +69,7 @@ public class ItemCustomBauble extends Item implements IBauble {
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         if (!world.isRemote) {
             IInventory baubles = BaublesApi.getBaubles(player);
-            for (int i = 0; i < baubles.getSizeInventory(); i++) {
+            for (int i = 0; baubles != null && i < baubles.getSizeInventory(); i++) {
                 if (baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, itemStack)) {
                     baubles.setInventorySlotContents(i, itemStack.copy());
                     if (!player.capabilities.isCreativeMode) {

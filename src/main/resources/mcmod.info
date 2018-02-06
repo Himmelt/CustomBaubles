@@ -1,12 +1,12 @@
 [
   {
     "modid": "cbaubles",
-    "name": "AutoFishing",
-    "description": "AutoFishing Mod , Copyright (c) 2018 Himmelt.",
+    "name": "CustomBaubles",
+    "description": "CustomBaubles Mod , Copyright (c) 2018 Himmelt.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "https://github.com/Himmelt/AutoFishing",
-    "updateUrl": "https://github.com/Himmelt/AutoFishing/releases",
+    "url": "https://github.com/Himmelt/CustomBaubles",
+    "updateUrl": "https://github.com/Himmelt/CustomBaubles/releases",
     "authorList": [
       "Himmelt"
     ],

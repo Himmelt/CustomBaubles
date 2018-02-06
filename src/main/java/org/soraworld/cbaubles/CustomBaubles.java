@@ -16,8 +16,7 @@ import org.soraworld.cbaubles.proxy.CommonProxy;
         modid = Constants.MOD_ID,
         name = Constants.NAME,
         version = Constants.VERSION,
-        acceptedMinecraftVersions = Constants.AC_MC_VERSION,
-        dependencies = "baubles"
+        acceptedMinecraftVersions = Constants.AC_MC_VERSION
 )
 @SideOnly(Side.CLIENT)
 public class CustomBaubles {
