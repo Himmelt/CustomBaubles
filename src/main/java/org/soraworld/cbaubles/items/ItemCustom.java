@@ -88,7 +88,7 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public boolean isFull3D() {
-        return false;
+        return true;
     }
 
     /**
@@ -104,7 +104,6 @@ public class ItemCustom extends Item implements IBauble {
             NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
             Item item = Item.getItemById(bauble.getInteger(Constants.TAG_ICON));
             if (item != null) {
-                System.out.println(item.getUnlocalizedName());
                 return item.getIconFromDamage(1);
             }
         }
