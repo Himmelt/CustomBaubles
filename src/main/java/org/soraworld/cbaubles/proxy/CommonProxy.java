@@ -8,12 +8,14 @@ import net.minecraftforge.common.MinecraftForge;
 import org.soraworld.cbaubles.constant.Constants;
 import org.soraworld.cbaubles.handler.EventBusHandler;
 import org.soraworld.cbaubles.handler.FMLEventHandler;
-import org.soraworld.cbaubles.items.ItemCustomBauble;
+import org.soraworld.cbaubles.items.ItemCustom;
 
 public abstract class CommonProxy {
 
+    static final ItemCustom item_custom = new ItemCustom(Constants.ITEM_CUSTOM_BAUBLE);
+
     public void preInit(FMLPreInitializationEvent event) {
-        GameRegistry.registerItem(new ItemCustomBauble(Constants.ITEM_CUSTOM_BAUBLE), Constants.ITEM_CUSTOM_BAUBLE);
+        GameRegistry.registerItem(item_custom, item_custom.getRegisterName());
     }
 
     public void Init(FMLInitializationEvent event) {

@@ -14,11 +14,14 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import org.soraworld.cbaubles.constant.Constants;
 
-public class ItemCustomBauble extends Item implements IBauble {
+public class ItemCustom extends Item implements IBauble {
 
-    public ItemCustomBauble(String name) {
-        this.setTextureName(Constants.MOD_ID + ":" + name);
-        this.setUnlocalizedName(name);
+    private final String registerName;
+
+    public ItemCustom(String registerName) {
+        this.registerName = registerName;
+        this.setTextureName(Constants.MOD_ID + ":" + registerName);
+        this.setUnlocalizedName(registerName);
         this.setMaxStackSize(1);
         this.setMaxDamage(0);
         this.setCreativeTab(CreativeTabs.tabTools);
@@ -84,19 +87,50 @@ public class ItemCustomBauble extends Item implements IBauble {
     }
 
     @Override
-    public IIcon getIcon(ItemStack stack, int pass) {
-        return getIconIndex(stack);
+    public boolean isFull3D() {
+        return false;
     }
 
+    /**
+     * 手持第一视角贴图
+     *
+     * @param stack 物品
+     * @param pass  不知道
+     * @return 贴图
+     */
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        if (stack != null && stack.stackTagCompound != null) {
+            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
+            Item item = Item.getItemById(bauble.getInteger(Constants.TAG_ICON));
+            if (item != null) {
+                System.out.println(item.getUnlocalizedName());
+                return item.getIconFromDamage(1);
+            }
+        }
+        return itemIcon;
+    }
+
+    /**
+     * ItemStack 贴图
+     *
+     * @param stack 物品
+     * @return 贴图
+     */
     @Override
     public IIcon getIconIndex(ItemStack stack) {
         if (stack != null && stack.stackTagCompound != null) {
             NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
             Item item = Item.getItemById(bauble.getInteger(Constants.TAG_ICON));
             if (item != null) {
-                return item.getIconFromDamage(0);
+                ItemStack stack1 = new ItemStack(item, 1, 1);
+                return stack1.getIconIndex();
             }
         }
         return itemIcon;
+    }
+
+    public String getRegisterName() {
+        return registerName;
     }
 }

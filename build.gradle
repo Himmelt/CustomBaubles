@@ -32,7 +32,7 @@ minecraft {
 }
 
 dependencies {
-    compile files('lib/Baubles-1.7.10-1.0.1-deobf.jar')
+    //compile files('lib/Baubles-1.7.10-1.0.1-deobf.jar')
 }
 
 processResources {
