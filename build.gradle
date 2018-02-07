@@ -3,7 +3,11 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "http://files.minecraftforge.net/maven/"
+        }
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven/'
         }
         maven {
             name = "sonatype"
@@ -12,6 +16,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
 
@@ -32,6 +37,8 @@ minecraft {
 }
 
 dependencies {
+    compile 'org.spongepowered:mixin:0.7.6-SNAPSHOT'
+    //compile group: 'org.spongepowered', name: 'mixin', version: '0.4.4'
     //compile files('lib/Baubles-1.7.10-1.0.1-deobf.jar')
 }
 

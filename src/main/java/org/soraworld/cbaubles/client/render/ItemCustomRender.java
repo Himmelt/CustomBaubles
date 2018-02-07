@@ -7,6 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -19,6 +21,7 @@ public class ItemCustomRender implements IItemRenderer {
 
     private final Minecraft mc = Minecraft.getMinecraft();
     private final RenderItem renderItem = RenderItem.getInstance();
+    private final RenderBlocks renderBlocks = RenderBlocks.getInstance();
 
     @Override
     public boolean handleRenderType(ItemStack stack, ItemRenderType type) {
@@ -37,26 +40,28 @@ public class ItemCustomRender implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack stack, Object... data) {
-        if (type == ItemRenderType.INVENTORY && stack != null && stack.stackTagCompound != null) {
+        if (stack != null && stack.stackTagCompound != null) {
             NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
-            Item item = Item.getItemById(bauble.getInteger(Constants.TAG_ICON));
-            if (item != null && item instanceof ItemBlock) {
+            int id = bauble.getInteger(Constants.TAG_ICON);
+            Block blk = Block.getBlockById(id);
+            if (blk != null && blk != Blocks.air) {
                 switch (type) {
                     case INVENTORY:
-                        renderItemIntoGUI(new ItemStack(item));
+                        renderItemIntoGUI(new ItemStack(blk));
                         break;
-                    case EQUIPPED:
+                    default:
+                        renderBlockIntoGUI(blk);
                 }
             }
         }
     }
 
     private void renderItemIntoGUI(ItemStack stack) {
-        RenderHelper.enableStandardItemLighting();
+        RenderHelper.enableGUIStandardItemLighting();
         renderItem.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, 0);
     }
 
     private void renderBlockIntoGUI(Block block) {
-        RenderBlocks.getInstance().renderBlockAsItem(block, 0, 1.0F);
+        RenderManager.instance.itemRenderer.renderItem(mc.thePlayer, new ItemStack(block), 0, ItemRenderType.EQUIPPED);
     }
 }

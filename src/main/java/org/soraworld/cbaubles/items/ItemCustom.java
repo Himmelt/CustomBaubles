@@ -88,7 +88,7 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public boolean isFull3D() {
-        return true;
+        return false;
     }
 
     /**
