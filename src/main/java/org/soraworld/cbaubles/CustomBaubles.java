@@ -6,8 +6,6 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import org.soraworld.cbaubles.command.CommandBauble;
 import org.soraworld.cbaubles.constant.Constants;
 import org.soraworld.cbaubles.proxy.CommonProxy;
@@ -18,7 +16,6 @@ import org.soraworld.cbaubles.proxy.CommonProxy;
         version = Constants.VERSION,
         acceptedMinecraftVersions = Constants.AC_MC_VERSION
 )
-@SideOnly(Side.CLIENT)
 public class CustomBaubles {
 
     @SidedProxy(clientSide = "org.soraworld.cbaubles.proxy.ClientProxy", serverSide = "org.soraworld.cbaubles.proxy.ServerProxy")

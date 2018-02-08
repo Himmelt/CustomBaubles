@@ -10,10 +10,6 @@ import java.util.List;
 
 public class CustomTweak implements ITweaker {
 
-    public CustomTweak() {
-
-    }
-
     @Override
     public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {
         // This statement must appear first, failing to include
