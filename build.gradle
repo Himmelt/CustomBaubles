@@ -56,8 +56,14 @@ minecraft {
     runDir = "build/run"
 }
 
+configurations {
+    shade
+    compile.extendsFrom shade
+}
+
 dependencies {
-    compile 'org.spongepowered:mixin:0.7.6-SNAPSHOT'
+    shade group: "org.spongepowered", name: "mixin", version: "0.7.6-SNAPSHOT", changing: true
+    //shade 'org.spongepowered:mixin:0.7.6-SNAPSHOT'
     //compile group: 'org.spongepowered', name: 'mixin', version: '0.4.4'
     //compile files('lib/Baubles-1.7.10-1.0.1-deobf.jar')
 }
@@ -77,6 +83,9 @@ processResources {
 }
 
 jar {
+    configurations.shade.copyRecursive().setTransitive(false).each { artifact ->
+        from(zipTree(artifact))
+    }
     manifest {
         attributes(
                 "FMLCorePluginContainsFMLMod": "true",
@@ -84,8 +93,7 @@ jar {
                 "MixinCompatibilityLevel": "JAVA_8",
                 "TweakClass": "org.soraworld.cbaubles.CustomTweak",
                 "TweakOrder": "0",
-                "MixinConfigs": "mixins.cbaubles.json",
-                "FMLAT": "cbaubles_at.cfg"
+                "MixinConfigs": "mixins.cbaubles.json"
         )
     }
 }

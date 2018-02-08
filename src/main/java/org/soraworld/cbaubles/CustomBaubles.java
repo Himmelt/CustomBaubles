@@ -24,18 +24,25 @@ public class CustomBaubles {
     @SidedProxy(clientSide = "org.soraworld.cbaubles.proxy.ClientProxy", serverSide = "org.soraworld.cbaubles.proxy.ServerProxy")
     private static CommonProxy proxy;
 
+    public CustomBaubles() {
+        System.out.println("CustomBaubles Constructor");
+    }
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        System.out.println("preInit");
         proxy.preInit(event);
     }
 
     @EventHandler
     public void Init(FMLInitializationEvent event) {
+        System.out.println("Init");
         proxy.Init(event);
     }
 
     @EventHandler
     public void onServerStarting(FMLServerStartingEvent event) {
+        System.out.println("onServerStarting");
         event.registerServerCommand(new CommandBauble());
     }
 }

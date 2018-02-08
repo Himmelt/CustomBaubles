@@ -1,9 +1,5 @@
 package org.soraworld.cbaubles.constant;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-@SideOnly(Side.CLIENT)
 public final class Constants {
 
     public static final String MOD_ID = "cbaubles";

@@ -1,7 +1,5 @@
 package org.soraworld.cbaubles.command;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -10,7 +8,6 @@ import org.soraworld.cbaubles.util.Lists;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@SideOnly(Side.CLIENT)
 public abstract class IICommand implements ICommand {
 
     private final String name;

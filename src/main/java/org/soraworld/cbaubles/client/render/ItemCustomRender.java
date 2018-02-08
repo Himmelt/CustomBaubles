@@ -1,7 +1,5 @@
 package org.soraworld.cbaubles.client.render;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -16,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.IItemRenderer;
 import org.soraworld.cbaubles.constant.Constants;
 
-@SideOnly(Side.CLIENT)
 public class ItemCustomRender implements IItemRenderer {
 
     private final Minecraft mc = Minecraft.getMinecraft();

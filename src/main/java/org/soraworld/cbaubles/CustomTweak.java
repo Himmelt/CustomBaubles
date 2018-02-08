@@ -9,9 +9,13 @@ import java.io.File;
 import java.util.List;
 
 public class CustomTweak implements ITweaker {
+
+    public CustomTweak() {
+
+    }
+
     @Override
     public void acceptOptions(List<String> args, File gameDir, File assetsDir, String profile) {
-        System.out.println("acceptOptions:" + gameDir + assetsDir + profile);
         // This statement must appear first, failing to include
         // it will cause a runtime error
         MixinBootstrap.init();
@@ -19,6 +23,7 @@ public class CustomTweak implements ITweaker {
         // Retrieves the DEFAULT mixin environment and registers
         // the config file
         Mixins.addConfiguration("mixins.cbaubles.json");
+        System.out.println("acceptOptions:" + gameDir + assetsDir + profile);
     }
 
     @Override
