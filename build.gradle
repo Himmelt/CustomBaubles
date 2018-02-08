@@ -20,7 +20,27 @@ buildscript {
     }
 }
 
+repositories {
+    maven {
+        url 'http://maven.soraworld.org:8081/nexus/'
+    }
+    jcenter()
+    maven {
+        name = "forge"
+        url = "http://files.minecraftforge.net/maven/"
+    }
+    maven {
+        name = 'sponge'
+        url = 'https://repo.spongepowered.org/maven/'
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
 apply plugin: 'forge'
+//apply plugin: 'org.spongepowered.mixin'
 
 version = "1.7.10-0.0.1"
 group = "org.soraworld.cbaubles"
@@ -55,3 +75,18 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+
+jar {
+    manifest {
+        attributes(
+                "FMLCorePluginContainsFMLMod": "true",
+                "ForceLoadAsMod": "true",
+                "MixinCompatibilityLevel": "JAVA_8",
+                "TweakClass": "org.soraworld.cbaubles.CustomTweak",
+                "TweakOrder": "0",
+                "MixinConfigs": "mixins.cbaubles.json",
+                "FMLAT": "cbaubles_at.cfg"
+        )
+    }
+}
+

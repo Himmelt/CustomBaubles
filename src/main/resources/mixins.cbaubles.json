@@ -1,0 +1,7 @@
+{
+  "package": "org.soraworld.cbaubles.mixin",
+  "plugin": "org.soraworld.cbaubles.mixin.CustomMixinConfig",
+  "refmap": "mixins.cbaubles.refmap.json",
+  "mixins": [
+  ]
+}

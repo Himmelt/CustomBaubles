@@ -91,13 +91,6 @@ public class ItemCustom extends Item implements IBauble {
         return false;
     }
 
-    /**
-     * 手持第一视角贴图
-     *
-     * @param stack 物品
-     * @param pass  不知道
-     * @return 贴图
-     */
     @Override
     public IIcon getIcon(ItemStack stack, int pass) {
         if (stack != null && stack.stackTagCompound != null) {
@@ -110,12 +103,6 @@ public class ItemCustom extends Item implements IBauble {
         return itemIcon;
     }
 
-    /**
-     * ItemStack 贴图
-     *
-     * @param stack 物品
-     * @return 贴图
-     */
     @Override
     public IIcon getIconIndex(ItemStack stack) {
         if (stack != null && stack.stackTagCompound != null) {
