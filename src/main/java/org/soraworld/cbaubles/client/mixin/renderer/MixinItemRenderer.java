@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -42,8 +43,9 @@ public abstract class MixinItemRenderer {
 
     @Overwrite
     public void renderItem(EntityLivingBase livingBase, ItemStack itemStack, int pass, IItemRenderer.ItemRenderType type) {
+        if (livingBase == null || itemStack == null) return;
 
-        if (itemStack != null && itemStack.stackTagCompound != null) {
+        if (itemStack.stackTagCompound != null) {
             NBTTagCompound bauble = itemStack.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM);
             String item_id = bauble.getString(Constants.TAG_ITEM);
             if (item_id != null) {
@@ -64,7 +66,7 @@ public abstract class MixinItemRenderer {
         Item item = itemStack.getItem();
         Block block = Block.getBlockFromItem(item);
 
-        if (itemStack != null && block != null && block.getRenderBlockPass() != 0) {
+        if (block != Blocks.air && block.getRenderBlockPass() != 0) {
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_CULL_FACE);
             OpenGlHelper.glBlendFunc(770, 771, 1, 0);
@@ -76,7 +78,7 @@ public abstract class MixinItemRenderer {
         } else if (itemStack.getItemSpriteNumber() == 0 && item instanceof ItemBlock && RenderBlocks.renderItemIn3d(block.getRenderType())) {
             texturemanager.bindTexture(texturemanager.getResourceLocation(0));
 
-            if (itemStack != null && block != null && block.getRenderBlockPass() != 0) {
+            if (block != Blocks.air && block.getRenderBlockPass() != 0) {
                 GL11.glDepthMask(false);
                 this.renderBlocksIr.renderBlockAsItem(block, itemStack.getItemDamage(), 1.0F);
                 GL11.glDepthMask(true);
@@ -144,7 +146,7 @@ public abstract class MixinItemRenderer {
             TextureUtil.func_147945_b();
         }
 
-        if (itemStack != null && block != null && block.getRenderBlockPass() != 0) {
+        if (block != Blocks.air && block.getRenderBlockPass() != 0) {
             GL11.glDisable(GL11.GL_BLEND);
         }
 
