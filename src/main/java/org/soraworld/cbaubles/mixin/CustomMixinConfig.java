@@ -4,7 +4,6 @@ import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,12 +15,13 @@ public class CustomMixinConfig implements IMixinConfigPlugin {
 
     @Override
     public String getRefMapperConfig() {
-        return "";
+        return null;
     }
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return false;
+        System.out.println("shouldApplyMixin:" + targetClassName + mixinClassName);
+        return true;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CustomMixinConfig implements IMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
-        return new ArrayList<>();
+        return null;
     }
 
     @Override

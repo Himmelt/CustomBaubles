@@ -81,6 +81,20 @@ processResources {
         exclude 'mcmod.info'
     }
 }
+def serverRefMap = "${tasks.compileJava.temporaryDir}" + File.separator + "mixins.cbaubles.refmap.json"
+
+def mixinSrg = "${tasks.reobf.temporaryDir}" + File.separator + "mixins.srg"
+
+afterEvaluate {
+    tasks.compileJava.options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}", "-AoutSrgFile=${mixinSrg}", "-AoutRefMapFile=${serverRefMap}"]
+}
+
+reobf {
+    addExtraSrgFile mixinSrg
+    reobf(jar) { spec ->
+        spec.classpath = sourceSets.main.compileClasspath
+    }
+}
 
 jar {
     configurations.shade.copyRecursive().setTransitive(false).each { artifact ->
