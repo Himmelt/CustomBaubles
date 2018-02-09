@@ -18,6 +18,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
+import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.client.MinecraftForgeClient;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -41,9 +42,15 @@ public abstract class MixinItemRenderer {
     @Shadow
     private RenderBlocks renderBlocksIr;
 
+    /**
+     * @author Himmelt
+     * @reason change render ItemStack
+     */
     @Overwrite
-    public void renderItem(EntityLivingBase livingBase, ItemStack itemStack, int pass, IItemRenderer.ItemRenderType type) {
+    public void renderItem(EntityLivingBase livingBase, ItemStack itemStack, int pass) {
         if (livingBase == null || itemStack == null) return;
+
+        System.out.println(livingBase.toString() + itemStack);
 
         if (itemStack.stackTagCompound != null) {
             NBTTagCompound bauble = itemStack.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM);
@@ -60,7 +67,7 @@ public abstract class MixinItemRenderer {
                 }
             }
         }
-
+        ItemRenderType type = ItemRenderType.EQUIPPED;
         GL11.glPushMatrix();
         TextureManager texturemanager = this.mc.getTextureManager();
         Item item = itemStack.getItem();

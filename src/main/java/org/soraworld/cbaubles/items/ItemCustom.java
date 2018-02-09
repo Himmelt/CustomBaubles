@@ -85,11 +85,6 @@ public class ItemCustom extends Item implements IBauble {
         return itemStack;
     }
 
-    @Override
-    public boolean isFull3D() {
-        return false;
-    }
-
     public String getRegisterName() {
         return registerName;
     }

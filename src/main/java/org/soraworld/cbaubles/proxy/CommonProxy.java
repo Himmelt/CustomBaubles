@@ -12,7 +12,7 @@ import org.soraworld.cbaubles.items.ItemCustom;
 
 public abstract class CommonProxy {
 
-    static final ItemCustom item_custom = new ItemCustom(Constants.ITEM_CUSTOM_BAUBLE);
+    private static final ItemCustom item_custom = new ItemCustom(Constants.ITEM_CUSTOM_BAUBLE);
 
     public void preInit(FMLPreInitializationEvent event) {
         GameRegistry.registerItem(item_custom, item_custom.getRegisterName());
