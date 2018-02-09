@@ -3,8 +3,6 @@ package org.soraworld.cbaubles.proxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
-import org.soraworld.cbaubles.client.handler.EventHandler;
 import org.soraworld.cbaubles.client.render.ItemCustomRender;
 
 public class ClientProxy extends CommonProxy {
@@ -18,6 +16,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void Init(FMLInitializationEvent event) {
         super.Init(event);
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        //MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
 }

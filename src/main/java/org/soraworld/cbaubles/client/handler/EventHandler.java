@@ -11,9 +11,6 @@ public class EventHandler {
 
     @SubscribeEvent
     public void on(RenderHandEvent event) {
-
-        //mc.thePlayer.setCurrentItemOrArmor(0, new ItemStack(Items.ender_eye));
-        System.out.println(event);
     }
 
     @SubscribeEvent

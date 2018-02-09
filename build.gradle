@@ -91,7 +91,7 @@ jar {
                 "FMLCorePluginContainsFMLMod": "true",
                 "ForceLoadAsMod": "true",
                 "MixinCompatibilityLevel": "JAVA_8",
-                "TweakClass": "org.soraworld.cbaubles.CustomTweak",
+                "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
                 "TweakOrder": "0",
                 "MixinConfigs": "mixins.cbaubles.json"
         )
