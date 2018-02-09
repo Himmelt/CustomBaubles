@@ -22,10 +22,10 @@ public class CommandBauble extends IICommand {
             if (stack.stackTagCompound == null) {
                 stack.stackTagCompound = new NBTTagCompound();
             }
-            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
+            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM);
             bauble.setByte(Constants.TAG_TYPE, Byte.valueOf(args.get(0)));
-            bauble.setInteger(Constants.TAG_ICON, Integer.valueOf(args.get(1)));
-            stack.stackTagCompound.setTag(Constants.TAG_BAUBLE, bauble);
+            bauble.setString(Constants.TAG_ITEM, args.get(1));
+            stack.stackTagCompound.setTag(Constants.TAG_CUSTOM, bauble);
         }
     }
 }

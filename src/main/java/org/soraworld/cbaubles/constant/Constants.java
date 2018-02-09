@@ -8,7 +8,7 @@ public final class Constants {
     public static final String AC_MC_VERSION = "[1.7.10]";
 
     public static final String ITEM_CUSTOM_BAUBLE = "custombauble";
-    public static final String TAG_BAUBLE = "Bauble";
-    public static final String TAG_ICON = "icon";
+    public static final String TAG_CUSTOM = MOD_ID;
     public static final String TAG_TYPE = "type";
+    public static final String TAG_ITEM = "item";
 }

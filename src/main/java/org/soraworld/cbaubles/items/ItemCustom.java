@@ -10,7 +10,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import org.soraworld.cbaubles.constant.Constants;
 
@@ -30,7 +29,7 @@ public class ItemCustom extends Item implements IBauble {
     @Override
     public BaubleType getBaubleType(ItemStack stack) {
         if (stack != null && stack.stackTagCompound != null) {
-            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
+            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM);
             switch (bauble.getByte(Constants.TAG_TYPE)) {
                 case 0:
                     return BaubleType.RING;
@@ -89,31 +88,6 @@ public class ItemCustom extends Item implements IBauble {
     @Override
     public boolean isFull3D() {
         return false;
-    }
-
-    @Override
-    public IIcon getIcon(ItemStack stack, int pass) {
-        if (stack != null && stack.stackTagCompound != null) {
-            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
-            Item item = Item.getItemById(bauble.getInteger(Constants.TAG_ICON));
-            if (item != null) {
-                return item.getIconFromDamage(1);
-            }
-        }
-        return itemIcon;
-    }
-
-    @Override
-    public IIcon getIconIndex(ItemStack stack) {
-        if (stack != null && stack.stackTagCompound != null) {
-            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_BAUBLE);
-            Item item = Item.getItemById(bauble.getInteger(Constants.TAG_ICON));
-            if (item != null) {
-                ItemStack stack1 = new ItemStack(item, 1, 1);
-                return stack1.getIconIndex();
-            }
-        }
-        return itemIcon;
     }
 
     public String getRegisterName() {
