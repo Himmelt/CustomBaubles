@@ -6,7 +6,6 @@ import net.minecraft.command.ICommandSender;
 import org.soraworld.cbaubles.util.ListUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class IICommand implements ICommand {
 
@@ -26,7 +25,13 @@ public abstract class IICommand implements ICommand {
 
     private static List<String> getMatchList(String arg, Collection<String> possibles) {
         if (arg.isEmpty()) return new ArrayList<>(possibles);
-        return possibles.stream().filter(s -> s.startsWith(arg)).collect(Collectors.toList());
+        ArrayList<String> list = new ArrayList<>();
+        for (String possible : possibles) {
+            if (possible.startsWith(arg)) {
+                list.add(possible);
+            }
+        }
+        return list;
     }
 
     final void addSub(IICommand sub) {

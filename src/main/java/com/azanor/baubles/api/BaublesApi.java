@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * @author Azanor
  */
 public class BaublesApi {
-    static Method getBaubles;
+    private static Method getBaubles;
 
     /**
      * Retrieves the baubles inventory for the supplied player

@@ -18,7 +18,7 @@ import org.soraworld.cbaubles.constant.Constants;
 public class ItemCustom extends Item implements IBauble {
 
     private final String registerName;
-    private long last;
+    private byte ticks = 0;
 
     public ItemCustom(String registerName) {
         this.registerName = registerName;
@@ -47,7 +47,7 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-        if (System.currentTimeMillis() - last > 500 && itemstack != null && itemstack.stackTagCompound != null) {
+        if (ticks++ >= 20 && itemstack != null && itemstack.stackTagCompound != null) {
             NBTTagList potionEffects = itemstack.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM).getTagList(Constants.TAG_EFFECT, 10);
             int size = potionEffects.tagCount();
             for (int i = 0; i < size; i++) {
@@ -55,10 +55,10 @@ public class ItemCustom extends Item implements IBauble {
                 if (effect != null) {
                     byte id = effect.getByte("id");
                     byte lvl = effect.getByte("lvl");
-                    player.addPotionEffect(new PotionEffect(id, 25, lvl - 1, false));
+                    player.addPotionEffect(new PotionEffect(id, 60, lvl - 1, true));
                 }
             }
-            last = System.currentTimeMillis();
+            ticks = 0;
         }
     }
 
