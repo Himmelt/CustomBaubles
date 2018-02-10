@@ -1,4 +1,4 @@
-package org.soraworld.cbaubles.client.mixin;
+package org.soraworld.cbaubles.mixin;
 
 import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
