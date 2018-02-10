@@ -3,9 +3,10 @@ package org.soraworld.cbaubles.command;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.PotionEffect;
 import org.soraworld.cbaubles.constant.Constants;
+import org.soraworld.cbaubles.items.Bauble;
+import org.soraworld.cbaubles.items.IItemStack;
 
 import java.util.ArrayList;
 
@@ -17,22 +18,17 @@ public class CommandBauble extends IICommand {
 
     @Override
     public void execute(ICommandSender sender, ArrayList<String> args) {
-        if (sender instanceof EntityPlayer && args.size() == 4) {
+        if (sender instanceof EntityPlayer && args.size() == 3) {
             EntityPlayer player = (EntityPlayer) sender;
             ItemStack stack = player.getHeldItem();
-            if (stack.stackTagCompound == null) {
-                stack.stackTagCompound = new NBTTagCompound();
+            if (stack != null) {
+                System.out.println(stack.hashCode());
+                Bauble bauble = ((IItemStack) (Object) player.getHeldItem()).getBauble();
+                bauble.setType(Byte.valueOf(args.get(0)));
+                bauble.addEffect(new PotionEffect(Byte.valueOf(args.get(1)), 60, Byte.valueOf(args.get(2)), true));
+                System.out.println(stack.hashCode() + "AfterCMD:" + bauble);
+                player.setCurrentItemOrArmor(0, stack);
             }
-            NBTTagCompound bauble = stack.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM);
-            bauble.setByte(Constants.TAG_TYPE, Byte.valueOf(args.get(0)));
-            bauble.setString(Constants.TAG_ITEM, args.get(1));
-            NBTTagCompound effect = new NBTTagCompound();
-            effect.setByte("id", Byte.valueOf(args.get(2)));
-            effect.setByte("lvl", Byte.valueOf(args.get(3)));
-            NBTTagList potionEffects = bauble.getTagList(Constants.TAG_EFFECT, 10);
-            potionEffects.appendTag(effect);
-            bauble.setTag(Constants.TAG_EFFECT, potionEffects);
-            stack.stackTagCompound.setTag(Constants.TAG_CUSTOM, bauble);
         }
     }
 }

@@ -1,9 +1,10 @@
 {
-  "package": "org.soraworld.cbaubles.mixin.client",
+  "package": "org.soraworld.cbaubles.mixin",
   "plugin": "org.soraworld.cbaubles.mixin.CustomMixinConfig",
   "mixins": [
-    "renderer.MixinItemRenderer",
-    "renderer.entity.MixinRenderItem",
-    "renderer.entity.MixinRenderPlayer"
+    "item.MixinItemStack",
+    "client.renderer.MixinItemRenderer",
+    "client.renderer.entity.MixinRenderItem",
+    "client.renderer.entity.MixinRenderPlayer"
   ]
 }
