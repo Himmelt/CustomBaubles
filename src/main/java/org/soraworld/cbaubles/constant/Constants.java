@@ -11,4 +11,5 @@ public final class Constants {
     public static final String TAG_CUSTOM = MOD_ID;
     public static final String TAG_TYPE = "type";
     public static final String TAG_ITEM = "item";
+    public static final String TAG_EFFECT = "effect";
 }

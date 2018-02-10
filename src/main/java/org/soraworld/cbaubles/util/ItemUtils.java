@@ -1,4 +1,4 @@
-package org.soraworld.cbaubles.mixin;
+package org.soraworld.cbaubles.util;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -10,12 +10,15 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import org.soraworld.cbaubles.constant.Constants;
 
 public class ItemCustom extends Item implements IBauble {
 
     private final String registerName;
+    private long last;
 
     public ItemCustom(String registerName) {
         this.registerName = registerName;
@@ -44,7 +47,19 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
-
+        if (System.currentTimeMillis() - last > 500 && itemstack != null && itemstack.stackTagCompound != null) {
+            NBTTagList potionEffects = itemstack.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM).getTagList(Constants.TAG_EFFECT, 10);
+            int size = potionEffects.tagCount();
+            for (int i = 0; i < size; i++) {
+                NBTTagCompound effect = potionEffects.getCompoundTagAt(i);
+                if (effect != null) {
+                    byte id = effect.getByte("id");
+                    byte lvl = effect.getByte("lvl");
+                    player.addPotionEffect(new PotionEffect(id, 25, lvl - 1, false));
+                }
+            }
+            last = System.currentTimeMillis();
+        }
     }
 
     @Override
@@ -64,6 +79,7 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public boolean canUnequip(ItemStack itemStack, EntityLivingBase entityLivingBase) {
+        // TODO cant unEquip
         return true;
     }
 

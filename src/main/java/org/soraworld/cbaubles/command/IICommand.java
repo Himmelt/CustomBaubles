@@ -3,7 +3,7 @@ package org.soraworld.cbaubles.command;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import org.soraworld.cbaubles.util.Lists;
+import org.soraworld.cbaubles.util.ListUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ public abstract class IICommand implements ICommand {
 
     public IICommand(String name, String... aliases) {
         this.name = name;
-        this.aliases = Lists.arrayList(aliases);
+        this.aliases = ListUtils.arrayList(aliases);
     }
 
     private static List<String> getMatchList(String arg, Collection<String> possibles) {
@@ -51,7 +51,7 @@ public abstract class IICommand implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] argArray) throws CommandException {
-        execute(sender, Lists.arrayList(argArray));
+        execute(sender, ListUtils.arrayList(argArray));
     }
 
     @Override
