@@ -2,6 +2,8 @@
   "package": "org.soraworld.cbaubles.mixin.client",
   "plugin": "org.soraworld.cbaubles.mixin.CustomMixinConfig",
   "mixins": [
-    "renderer.entity.MixinRenderItem"
+    "renderer.MixinItemRenderer",
+    "renderer.entity.MixinRenderItem",
+    "renderer.entity.MixinRenderPlayer"
   ]
 }

@@ -10,7 +10,6 @@ import java.util.Set;
 public class CustomMixinConfig implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
-        System.out.println("onLoad:" + mixinPackage);
     }
 
     @Override
@@ -20,7 +19,7 @@ public class CustomMixinConfig implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        System.out.println("shouldApplyMixin:" + targetClassName + mixinClassName);
+        System.out.println("Apply mixin:" + mixinClassName + "->" + targetClassName);
         return true;
     }
 
