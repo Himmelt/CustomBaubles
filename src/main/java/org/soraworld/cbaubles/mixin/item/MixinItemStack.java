@@ -131,7 +131,6 @@ public abstract class MixinItemStack implements IItemStack {
     @Override
     public Bauble getBauble() {
         if (bauble == null) bauble = new Bauble();
-        System.out.println("BeforeCMD:" + bauble);
         return bauble;
     }
 

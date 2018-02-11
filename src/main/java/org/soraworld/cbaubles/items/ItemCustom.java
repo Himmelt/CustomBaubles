@@ -23,7 +23,7 @@ public class ItemCustom extends Item implements IBauble {
         this.setTextureName(Constants.MOD_ID + ":" + registerName);
         this.setUnlocalizedName(registerName);
         this.setMaxStackSize(1);
-        this.setMaxDamage(0);
+        this.setMaxDamage(10);
         this.setCreativeTab(CreativeTabs.tabTools);
     }
 
@@ -45,12 +45,12 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
-
+        System.out.println("onEquipped:" + itemstack);
     }
 
     @Override
     public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-
+        System.out.println("onUnequipped:" + itemstack);
     }
 
     @Override

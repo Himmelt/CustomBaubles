@@ -18,16 +18,15 @@ public class CommandBauble extends IICommand {
 
     @Override
     public void execute(ICommandSender sender, ArrayList<String> args) {
-        if (sender instanceof EntityPlayer && args.size() == 3) {
+        if (sender instanceof EntityPlayer && args.size() == 4) {
             EntityPlayer player = (EntityPlayer) sender;
             ItemStack stack = player.getHeldItem();
             if (stack != null) {
-                System.out.println(stack.hashCode());
                 Bauble bauble = ((IItemStack) (Object) player.getHeldItem()).getBauble();
                 bauble.setType(Byte.valueOf(args.get(0)));
-                bauble.addEffect(new EffectPotion(Byte.valueOf(args.get(1)), Byte.valueOf(args.get(2))));
-                System.out.println(stack.hashCode() + "AfterCMD:" + bauble);
-                player.setCurrentItemOrArmor(0, stack);
+                bauble.setHp(Float.valueOf(args.get(1)));
+                bauble.addEffect(new EffectPotion(Byte.valueOf(args.get(2)), Byte.valueOf(args.get(3))));
+                //player.setCurrentItemOrArmor(0, stack);
             }
         }
     }

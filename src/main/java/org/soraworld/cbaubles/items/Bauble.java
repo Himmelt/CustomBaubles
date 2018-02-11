@@ -13,10 +13,12 @@ public class Bauble {
     private List<EffectPotion> effects;
     private static final List<EffectPotion> EMPTY = new ArrayList<>();
     private BaubleType type;
+    private float hp;
 
     @Nonnull
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
         compound.setByte("type", (byte) type.ordinal());
+        compound.setFloat("hp", hp);
         if (effects != null && !effects.isEmpty()) {
             NBTTagList list = new NBTTagList();
             for (EffectPotion effect : effects) {
@@ -35,6 +37,7 @@ public class Bauble {
         effects = null;
         if (compound != null) {
             setType(compound.getByte("type"));
+            setHp(compound.getFloat("hp"));
             if (compound.hasKey("effects", 9)) {
                 NBTTagList list = compound.getTagList("effects", 10);
                 if (list.tagCount() > 0) {
@@ -87,7 +90,16 @@ public class Bauble {
     public Bauble copy() {
         Bauble bauble = new Bauble();
         bauble.type = type;
+        bauble.hp = hp;
         bauble.effects = effects;
         return bauble;
+    }
+
+    public void setHp(float hp) {
+        this.hp = hp;
+    }
+
+    public float getHP() {
+        return this.hp;
     }
 }
