@@ -2,7 +2,7 @@ package org.soraworld.cbaubles.items;
 
 import com.azanor.baubles.api.BaubleType;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.nbt.NBTTagList;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -10,20 +10,46 @@ import java.util.List;
 
 public class Bauble {
 
-    private List<PotionEffect> effects;
-    private static final List<PotionEffect> EMPTY = new ArrayList<>();
+    private List<EffectPotion> effects;
+    private static final List<EffectPotion> EMPTY = new ArrayList<>();
     private BaubleType type;
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    @Nonnull
+    public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
+        compound.setByte("type", (byte) type.ordinal());
+        if (effects != null && !effects.isEmpty()) {
+            NBTTagList list = new NBTTagList();
+            for (EffectPotion effect : effects) {
+                NBTTagCompound potion = new NBTTagCompound();
+                potion.setByte("id", effect.id);
+                potion.setByte("lvl", effect.lvl);
+                list.appendTag(potion);
+            }
+            compound.setTag("effects", list);
+        }
         return compound;
     }
 
     public void readFromNBT(NBTTagCompound compound) {
-
+        type = null;
+        effects = null;
+        if (compound != null) {
+            setType(compound.getByte("type"));
+            if (compound.hasKey("effects", 9)) {
+                NBTTagList list = compound.getTagList("effects", 10);
+                if (list.tagCount() > 0) {
+                    effects = new ArrayList<>();
+                    for (int i = 0; i < list.tagCount(); i++) {
+                        NBTTagCompound potion = list.getCompoundTagAt(i);
+                        effects.add(new EffectPotion(potion.getByte("id"), potion.getByte("lvl")));
+                    }
+                }
+            }
+        }
     }
 
     @Nonnull
-    public List<PotionEffect> getEffects() {
+    public List<EffectPotion> getEffects() {
         return effects == null ? EMPTY : effects;
     }
 
@@ -48,8 +74,7 @@ public class Bauble {
         return type;
     }
 
-    public void addEffect(@Nonnull PotionEffect effect) {
-        System.out.println("Add Effect: " + effect);
+    public void addEffect(@Nonnull EffectPotion effect) {
         if (effects == null) effects = new ArrayList<>();
         effects.add(effect);
     }

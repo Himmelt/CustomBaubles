@@ -3,9 +3,9 @@ package org.soraworld.cbaubles.command;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import org.soraworld.cbaubles.constant.Constants;
 import org.soraworld.cbaubles.items.Bauble;
+import org.soraworld.cbaubles.items.EffectPotion;
 import org.soraworld.cbaubles.items.IItemStack;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class CommandBauble extends IICommand {
                 System.out.println(stack.hashCode());
                 Bauble bauble = ((IItemStack) (Object) player.getHeldItem()).getBauble();
                 bauble.setType(Byte.valueOf(args.get(0)));
-                bauble.addEffect(new PotionEffect(Byte.valueOf(args.get(1)), 60, Byte.valueOf(args.get(2)), true));
+                bauble.addEffect(new EffectPotion(Byte.valueOf(args.get(1)), Byte.valueOf(args.get(2))));
                 System.out.println(stack.hashCode() + "AfterCMD:" + bauble);
                 player.setCurrentItemOrArmor(0, stack);
             }

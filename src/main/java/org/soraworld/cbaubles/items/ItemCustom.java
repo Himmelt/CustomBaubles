@@ -29,7 +29,6 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public BaubleType getBaubleType(ItemStack stack) {
-        System.out.println(stack);
         return stack == null ? null : ((IItemStack) (Object) stack).getBauble().getType();
     }
 
@@ -37,8 +36,8 @@ public class ItemCustom extends Item implements IBauble {
     public void onWornTick(ItemStack stack, EntityLivingBase player) {
         if (ticks++ >= 20 && stack != null) {
             Bauble bauble = ((IItemStack) (Object) stack).getBauble();
-            for (PotionEffect effect : bauble.getEffects()) {
-                player.addPotionEffect(effect);
+            for (EffectPotion effect : bauble.getEffects()) {
+                player.addPotionEffect(new PotionEffect(effect.id, 60, effect.lvl, true));
             }
             ticks = 0;
         }
