@@ -66,7 +66,7 @@ public abstract class IICommand implements ICommand {
 
     @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
+        return sender.canCommandSenderUseCommand(4, "op");
     }
 
     @Override

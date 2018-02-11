@@ -7,4 +7,5 @@ public interface IItemStack {
     @Nonnull
     Bauble getBauble();
 
+    void setBauble(@Nonnull Bauble bauble);
 }

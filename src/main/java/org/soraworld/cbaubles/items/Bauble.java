@@ -58,4 +58,11 @@ public class Bauble {
     public String toString() {
         return type == null ? "null" : type.name();
     }
+
+    public Bauble copy() {
+        Bauble bauble = new Bauble();
+        bauble.type = type;
+        bauble.effects = effects;
+        return bauble;
+    }
 }

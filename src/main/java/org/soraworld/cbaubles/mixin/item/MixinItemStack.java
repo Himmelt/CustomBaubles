@@ -32,6 +32,51 @@ public abstract class MixinItemStack implements IItemStack {
     @Shadow
     public abstract String toString();
 
+
+    /**
+     * Returns a new stack with the same properties.
+     *
+     * @author Himmelt
+     * @reason customize ItemStack
+     */
+    @Overwrite
+    public ItemStack copy() {
+        ItemStack itemstack = new ItemStack(this.field_151002_e, this.stackSize, this.itemDamage);
+
+        if (this.stackTagCompound != null) {
+            itemstack.stackTagCompound = (NBTTagCompound) this.stackTagCompound.copy();
+        }
+
+        if (this.bauble != null) {
+            ((IItemStack) (Object) itemstack).setBauble(bauble.copy());
+        }
+
+        return itemstack;
+    }
+
+    /**
+     * Remove the argument from the stack size. Return a new stack object with argument size.
+     *
+     * @author Himmelt
+     * @reason customize ItemStack
+     */
+    @Overwrite
+    public ItemStack splitStack(int splitSize) {
+        ItemStack itemstack = new ItemStack(this.field_151002_e, splitSize, this.itemDamage);
+
+        if (this.stackTagCompound != null) {
+            itemstack.stackTagCompound = (NBTTagCompound) this.stackTagCompound.copy();
+        }
+
+        if (this.bauble != null) {
+            ((IItemStack) (Object) itemstack).setBauble(bauble.copy());
+        }
+
+        this.stackSize -= splitSize;
+        return itemstack;
+    }
+
+
     /**
      * Write the stack fields to a NBT object. Return the new NBT object.
      *
@@ -88,5 +133,10 @@ public abstract class MixinItemStack implements IItemStack {
         if (bauble == null) bauble = new Bauble();
         System.out.println("BeforeCMD:" + bauble);
         return bauble;
+    }
+
+    @Override
+    public void setBauble(@Nonnull Bauble bauble) {
+        this.bauble = bauble;
     }
 }
