@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 @Mixin(ItemStack.class)
 public abstract class MixinItemStack implements IItemStack {
@@ -127,15 +128,21 @@ public abstract class MixinItemStack implements IItemStack {
         }
     }
 
-    @Nonnull
+    @Nullable
     @Override
     public Bauble getBauble() {
-        if (bauble == null) bauble = new Bauble();
         return bauble;
     }
 
     @Override
-    public void setBauble(@Nonnull Bauble bauble) {
+    public void setBauble(Bauble bauble) {
         this.bauble = bauble;
+    }
+
+    @Nonnull
+    @Override
+    public Bauble getOrCreateBauble() {
+        if (bauble == null) bauble = new Bauble();
+        return bauble;
     }
 }

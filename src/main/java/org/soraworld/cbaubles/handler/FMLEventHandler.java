@@ -22,7 +22,7 @@ public class FMLEventHandler {
                 ItemStack stack = baubles.getStackInSlot(i);
                 if (stack != null) {
                     Bauble bauble = ((IItemStack) (Object) stack).getBauble();
-                    max_health += bauble.getHP();
+                    if (bauble != null) max_health += bauble.getHP();
                 }
             }
             event.player.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(max_health);

@@ -10,6 +10,10 @@ buildscript {
             url = 'https://repo.spongepowered.org/maven/'
         }
         maven {
+            name = 'spigot'
+            url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
+        }
+        maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
@@ -32,6 +36,10 @@ repositories {
     maven {
         name = 'sponge'
         url = 'https://repo.spongepowered.org/maven/'
+    }
+    maven {
+        name = 'spigot'
+        url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
     }
     maven {
         name = "sonatype"
@@ -63,6 +71,7 @@ configurations {
 
 dependencies {
     shade group: "org.spongepowered", name: "mixin", version: "0.7.6-SNAPSHOT", changing: true
+    compile 'org.spigotmc:spigot-api:1.8-R0.1-SNAPSHOT'
     //shade 'org.spongepowered:mixin:0.7.6-SNAPSHOT'
     //compile group: 'org.spongepowered', name: 'mixin', version: '0.4.4'
     //compile files('lib/Baubles-1.7.10-1.0.1-deobf.jar')

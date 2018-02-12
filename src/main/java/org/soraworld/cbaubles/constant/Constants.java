@@ -1,5 +1,8 @@
 package org.soraworld.cbaubles.constant;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public final class Constants {
 
     public static final String MOD_ID = "cbaubles";
@@ -12,4 +15,7 @@ public final class Constants {
     public static final String TAG_TYPE = "type";
     public static final String TAG_ITEM = "item";
     public static final String TAG_EFFECT = "effect";
+
+    public static Logger LOGGER = LogManager.getLogger(NAME);
+
 }

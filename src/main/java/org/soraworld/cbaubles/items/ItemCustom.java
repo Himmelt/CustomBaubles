@@ -29,28 +29,40 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public BaubleType getBaubleType(ItemStack stack) {
-        return stack == null ? null : ((IItemStack) (Object) stack).getBauble().getType();
+        if (stack != null) {
+            Bauble bauble = ((IItemStack) (Object) stack).getBauble();
+            if (bauble != null) {
+                return bauble.getType();
+            }
+        }
+        return null;
     }
 
     @Override
     public void onWornTick(ItemStack stack, EntityLivingBase player) {
-        if (ticks++ >= 20 && stack != null) {
+        if (ticks++ >= 20 && stack != null && player instanceof EntityPlayer) {
             Bauble bauble = ((IItemStack) (Object) stack).getBauble();
-            for (EffectPotion effect : bauble.getEffects()) {
-                player.addPotionEffect(new PotionEffect(effect.id, 60, effect.lvl, true));
+            if (bauble != null && bauble.canUse((EntityPlayer) player)) {
+                for (EffectPotion effect : bauble.getEffects()) {
+                    player.addPotionEffect(new PotionEffect(effect.id, 60, effect.lvl, true));
+                }
             }
             ticks = 0;
         }
     }
 
     @Override
-    public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
-        System.out.println("onEquipped:" + itemstack);
+    public void onEquipped(ItemStack stack, EntityLivingBase player) {
+        if (stack != null && player instanceof EntityPlayer) {
+            Bauble bauble = ((IItemStack) (Object) stack).getBauble();
+            if (bauble != null && bauble.canBind()) {
+                bauble.setOwner(player.getCommandSenderName());
+            }
+        }
     }
 
     @Override
-    public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-        System.out.println("onUnequipped:" + itemstack);
+    public void onUnequipped(ItemStack stack, EntityLivingBase player) {
     }
 
     @Override
@@ -66,16 +78,18 @@ public class ItemCustom extends Item implements IBauble {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        if (!world.isRemote) {
-            IInventory baubles = BaublesApi.getBaubles(player);
-            for (int i = 0; baubles != null && i < baubles.getSizeInventory(); i++) {
-                if (baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, stack)) {
-                    baubles.setInventorySlotContents(i, stack.copy());
-                    if (!player.capabilities.isCreativeMode) {
-                        player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+        if (!world.isRemote && stack != null) {
+            Bauble bauble = ((IItemStack) (Object) stack).getBauble();
+            if (bauble != null && bauble.canUse(player)) {
+                IInventory baubles = BaublesApi.getBaubles(player);
+                for (int i = 0; baubles != null && i < baubles.getSizeInventory(); i++) {
+                    if (baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, stack)) {
+                        baubles.setInventorySlotContents(i, stack.copy());
+                        if (!player.capabilities.isCreativeMode) {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+                        }
+                        break;
                     }
-                    onEquipped(stack, player);
-                    break;
                 }
             }
         }

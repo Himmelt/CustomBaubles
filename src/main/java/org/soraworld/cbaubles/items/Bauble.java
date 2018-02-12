@@ -1,8 +1,10 @@
 package org.soraworld.cbaubles.items;
 
 import com.azanor.baubles.api.BaubleType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import org.soraworld.cbaubles.util.PermissionManager;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -14,6 +16,11 @@ public class Bauble {
     private static final List<EffectPotion> EMPTY = new ArrayList<>();
     private BaubleType type;
     private float hp;
+    private String perm;
+    private String owner;
+    private boolean bind;
+
+    private static final PermissionManager pm = PermissionManager.getPermissionManager();
 
     @Nonnull
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
@@ -101,5 +108,37 @@ public class Bauble {
 
     public float getHP() {
         return this.hp;
+    }
+
+    public String getPerm() {
+        return perm;
+    }
+
+    public void setPerm(String perm) {
+        this.perm = perm;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setBind(boolean bind) {
+        this.bind = bind;
+    }
+
+    public boolean bind() {
+        return bind;
+    }
+
+    public boolean canBind() {
+        return bind && (owner == null || owner.isEmpty());
+    }
+
+    public boolean canUse(EntityPlayer player) {
+        return pm.hasPermission(player, perm) && (!bind || player.getCommandSenderName().equals(owner));
     }
 }

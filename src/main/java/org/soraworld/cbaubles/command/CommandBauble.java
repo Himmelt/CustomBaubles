@@ -22,7 +22,7 @@ public class CommandBauble extends IICommand {
             EntityPlayer player = (EntityPlayer) sender;
             ItemStack stack = player.getHeldItem();
             if (stack != null) {
-                Bauble bauble = ((IItemStack) (Object) player.getHeldItem()).getBauble();
+                Bauble bauble = ((IItemStack) (Object) player.getHeldItem()).getOrCreateBauble();
                 bauble.setType(Byte.valueOf(args.get(0)));
                 bauble.setHp(Float.valueOf(args.get(1)));
                 bauble.addEffect(new EffectPotion(Byte.valueOf(args.get(2)), Byte.valueOf(args.get(3))));
