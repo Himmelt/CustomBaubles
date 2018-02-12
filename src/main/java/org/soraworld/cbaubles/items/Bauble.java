@@ -17,8 +17,8 @@ public class Bauble {
     private BaubleType type;
     private float hp;
     private String perm;
-    private String owner;
     private boolean bind;
+    private String owner;
 
     private static final PermissionManager pm = PermissionManager.getPermissionManager();
 
@@ -26,6 +26,9 @@ public class Bauble {
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
         compound.setByte("type", (byte) type.ordinal());
         compound.setFloat("hp", hp);
+        if (perm != null && !perm.isEmpty()) compound.setString("perm", perm);
+        compound.setBoolean("bind", bind);
+        if (owner != null && !owner.isEmpty()) compound.setString("owner", owner);
         if (effects != null && !effects.isEmpty()) {
             NBTTagList list = new NBTTagList();
             for (EffectPotion effect : effects) {
@@ -41,10 +44,17 @@ public class Bauble {
 
     public void readFromNBT(NBTTagCompound compound) {
         type = null;
+        hp = 0;
+        perm = null;
+        bind = false;
+        owner = null;
         effects = null;
         if (compound != null) {
-            setType(compound.getByte("type"));
-            setHp(compound.getFloat("hp"));
+            if (compound.hasKey("type")) setType(compound.getByte("type"));
+            if (compound.hasKey("hp")) setHp(compound.getFloat("hp"));
+            if (compound.hasKey("perm")) setPerm(compound.getString("perm"));
+            if (compound.hasKey("bind")) setBind(compound.getBoolean("bind"));
+            if (compound.hasKey("owner")) setOwner(compound.getString("owner"));
             if (compound.hasKey("effects", 9)) {
                 NBTTagList list = compound.getTagList("effects", 10);
                 if (list.tagCount() > 0) {
