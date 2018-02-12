@@ -103,6 +103,17 @@ public class CommandBauble extends IICommand {
                 }
             }
         });
+        addSub(new SubCommand("icon") {
+            @Override
+            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+                ItemStack stack = player.inventory.getStackInSlot(1);
+                if (stack == null || stack.getItem() instanceof ItemCustom) {
+                    bauble.setIcon(null);
+                } else {
+                    bauble.setIcon(stack);
+                }
+            }
+        });
     }
 
     @Override

@@ -7,6 +7,8 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
+import static org.soraworld.cbaubles.constant.Constants.LOGGER;
+
 public class CustomMixinConfig implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
@@ -19,7 +21,7 @@ public class CustomMixinConfig implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        System.out.println("Apply mixin:" + mixinClassName + "->" + targetClassName);
+        LOGGER.info("Mixin " + mixinClassName + " -> " + targetClassName);
         return true;
     }
 

@@ -2,6 +2,8 @@ package org.soraworld.cbaubles.items;
 
 import com.azanor.baubles.api.BaubleType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import org.soraworld.cbaubles.util.PermissionManager;
@@ -19,16 +21,19 @@ public class Bauble {
     private String perm;
     private boolean bind;
     private String owner;
+    private ItemStack icon;
 
     private static final PermissionManager pm = PermissionManager.getPermissionManager();
 
     @Nonnull
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
-        compound.setByte("type", (byte) type.ordinal());
+        if (type != null) compound.setByte("type", (byte) type.ordinal());
         compound.setFloat("hp", hp);
         if (perm != null && !perm.isEmpty()) compound.setString("perm", perm);
         compound.setBoolean("bind", bind);
         if (owner != null && !owner.isEmpty()) compound.setString("owner", owner);
+        if (!(icon == null || icon.getItem() instanceof ItemCustom))
+            compound.setString("icon", Item.getIdFromItem(icon.getItem()) + "/" + icon.getItemDamage());
         if (effects != null && !effects.isEmpty()) {
             NBTTagList list = new NBTTagList();
             for (EffectPotion effect : effects) {
@@ -48,6 +53,7 @@ public class Bauble {
         perm = null;
         bind = false;
         owner = null;
+        icon = null;
         effects = null;
         if (compound != null) {
             if (compound.hasKey("type")) setType(compound.getByte("type"));
@@ -55,6 +61,7 @@ public class Bauble {
             if (compound.hasKey("perm")) setPerm(compound.getString("perm"));
             if (compound.hasKey("bind")) setBind(compound.getBoolean("bind"));
             if (compound.hasKey("owner")) setOwner(compound.getString("owner"));
+            if (compound.hasKey("icon")) setIcon(compound.getString("icon"));
             if (compound.hasKey("effects", 9)) {
                 NBTTagList list = compound.getTagList("effects", 10);
                 if (list.tagCount() > 0) {
@@ -108,6 +115,10 @@ public class Bauble {
         Bauble bauble = new Bauble();
         bauble.type = type;
         bauble.hp = hp;
+        bauble.perm = perm;
+        bauble.bind = bind;
+        bauble.owner = owner;
+        bauble.icon = icon;
         bauble.effects = effects;
         return bauble;
     }
@@ -151,4 +162,28 @@ public class Bauble {
     public boolean canUse(EntityPlayer player) {
         return pm.hasPermission(player, perm) && (!bind || player.getCommandSenderName().equals(owner));
     }
+
+    public ItemStack getIcon() {
+        return icon;
+    }
+
+    public void setIcon(ItemStack icon) {
+        if (icon == null) this.icon = null;
+        else this.icon = icon.copy();
+    }
+
+    public void setIcon(int id, int damage) {
+        if (Item.getItemById(id) != null) {
+            icon = new ItemStack(Item.getItemById(id), damage);
+        }
+    }
+
+    private void setIcon(String icon) {
+        try {
+            String[] ss = icon.split("/");
+            this.icon = new ItemStack(Item.getItemById(Integer.valueOf(ss[0])), Integer.valueOf(ss[1]));
+        } catch (Throwable ignored) {
+        }
+    }
+
 }
