@@ -1,10 +1,7 @@
 package org.soraworld.cbaubles.util;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatStyle;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -104,6 +101,10 @@ public class I19n {
 
     public static IChatComponent formatKey(String key, Object... args) {
         return format(I18n.format(key, args));
+    }
+
+    public static IChatComponent translate(String key, Object... args) {
+        return new ChatComponentTranslation(key, args);
     }
 
 }
