@@ -160,7 +160,7 @@ public class Bauble {
     }
 
     public boolean canUse(EntityPlayer player) {
-        return pm.hasPermission(player, perm) && (!bind || player.getCommandSenderName().equals(owner));
+        return pm.hasPermission(player, perm) && (!bind || owner == null || owner.isEmpty() || player.getCommandSenderName().equals(owner));
     }
 
     public ItemStack getIcon() {
