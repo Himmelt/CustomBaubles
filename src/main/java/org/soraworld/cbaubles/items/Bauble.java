@@ -1,6 +1,8 @@
 package org.soraworld.cbaubles.items;
 
 import com.azanor.baubles.api.BaubleType;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,6 +23,10 @@ public class Bauble {
     private String perm;
     private boolean bind;
     private String owner;
+    private Item item;
+    private int damage;
+    private boolean mark;
+    @SideOnly(Side.CLIENT)
     private ItemStack icon;
 
     private static final PermissionManager pm = PermissionManager.getPermissionManager();
@@ -32,8 +38,8 @@ public class Bauble {
         if (perm != null && !perm.isEmpty()) compound.setString("perm", perm);
         compound.setBoolean("bind", bind);
         if (owner != null && !owner.isEmpty()) compound.setString("owner", owner);
-        if (!(icon == null || icon.getItem() instanceof ItemCustom))
-            compound.setString("icon", Item.getIdFromItem(icon.getItem()) + "/" + icon.getItemDamage());
+        if (item != null && !(item instanceof ItemCustom))
+            compound.setString("icon", Item.getIdFromItem(item) + "/" + damage);
         if (effects != null && !effects.isEmpty()) {
             NBTTagList list = new NBTTagList();
             for (EffectPotion effect : effects) {
@@ -53,7 +59,8 @@ public class Bauble {
         perm = null;
         bind = false;
         owner = null;
-        icon = null;
+        item = null;
+        damage = 0;
         effects = null;
         if (compound != null) {
             if (compound.hasKey("type")) setType(compound.getByte("type"));
@@ -118,7 +125,8 @@ public class Bauble {
         bauble.perm = perm;
         bauble.bind = bind;
         bauble.owner = owner;
-        bauble.icon = icon;
+        bauble.item = item;
+        bauble.damage = damage;
         bauble.effects = effects;
         return bauble;
     }
@@ -163,25 +171,40 @@ public class Bauble {
         return pm.hasPermission(player, perm) && (!bind || owner == null || owner.isEmpty() || player.getCommandSenderName().equals(owner));
     }
 
+    @SideOnly(Side.CLIENT)
     public ItemStack getIcon() {
+        if (mark && item != null) {
+            icon = new ItemStack(item, damage);
+            this.mark = false;
+        }
         return icon;
     }
 
     public void setIcon(ItemStack icon) {
-        if (icon == null) this.icon = null;
-        else this.icon = icon.copy();
+        if (icon == null) {
+            this.item = null;
+            this.damage = 0;
+        } else {
+            this.item = icon.getItem();
+            this.damage = icon.getItemDamage();
+        }
+        this.mark = true;
     }
 
     public void setIcon(int id, int damage) {
         if (Item.getItemById(id) != null) {
-            icon = new ItemStack(Item.getItemById(id), damage);
+            this.item = Item.getItemById(id);
+            this.damage = damage;
+            this.mark = true;
         }
     }
 
     private void setIcon(String icon) {
         try {
             String[] ss = icon.split("/");
-            this.icon = new ItemStack(Item.getItemById(Integer.valueOf(ss[0])), Integer.valueOf(ss[1]));
+            this.item = Item.getItemById(Integer.valueOf(ss[0]));
+            this.damage = Integer.valueOf(ss[1]);
+            this.mark = true;
         } catch (Throwable ignored) {
         }
     }

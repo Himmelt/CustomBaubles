@@ -26,6 +26,7 @@ public class FMLEventHandler {
                 }
             }
             event.player.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(max_health);
+            //event.player.getEntityAttribute(SharedMonsterAttributes.knockbackResistance);
             ticks = 0;
         }
     }
