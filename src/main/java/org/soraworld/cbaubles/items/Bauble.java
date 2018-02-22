@@ -14,6 +14,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.soraworld.cbaubles.constant.Constants.LOGGER;
+
 public class Bauble {
 
     private List<EffectPotion> effects;
@@ -25,9 +27,6 @@ public class Bauble {
     private String owner;
     private Item item;
     private int damage;
-    private boolean mark;
-    @SideOnly(Side.CLIENT)
-    private ItemStack icon;
 
     private static final PermissionManager pm = PermissionManager.getPermissionManager();
 
@@ -115,7 +114,7 @@ public class Bauble {
 
     @Override
     public String toString() {
-        return type == null ? "null" : type.name();
+        return "[" + type + "/" + hp + "/" + perm + "/" + bind + "/" + owner + "/" + item + "/" + damage + "]";
     }
 
     public Bauble copy() {
@@ -173,11 +172,7 @@ public class Bauble {
 
     @SideOnly(Side.CLIENT)
     public ItemStack getIcon() {
-        if (mark && item != null) {
-            icon = new ItemStack(item, damage);
-            this.mark = false;
-        }
-        return icon;
+        return item != null ? new ItemStack(item, damage) : null;
     }
 
     public void setIcon(ItemStack icon) {
@@ -188,14 +183,12 @@ public class Bauble {
             this.item = icon.getItem();
             this.damage = icon.getItemDamage();
         }
-        this.mark = true;
     }
 
     public void setIcon(int id, int damage) {
         if (Item.getItemById(id) != null) {
             this.item = Item.getItemById(id);
             this.damage = damage;
-            this.mark = true;
         }
     }
 
@@ -204,8 +197,8 @@ public class Bauble {
             String[] ss = icon.split("/");
             this.item = Item.getItemById(Integer.valueOf(ss[0]));
             this.damage = Integer.valueOf(ss[1]);
-            this.mark = true;
-        } catch (Throwable ignored) {
+        } catch (Throwable e) {
+            LOGGER.catching(e);
         }
     }
 
