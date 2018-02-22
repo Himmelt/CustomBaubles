@@ -11,17 +11,19 @@ import net.minecraft.nbt.NBTTagList;
 import org.soraworld.cbaubles.util.PermissionManager;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static org.soraworld.cbaubles.constant.Constants.LOGGER;
 
 public class Bauble {
 
-    private List<EffectPotion> effects;
-    private static final List<EffectPotion> EMPTY = new ArrayList<>();
+    private LinkedHashSet<EffectPotion> effects;
+    private static final Set<EffectPotion> EMPTY = new LinkedHashSet<>();
     private BaubleType type;
-    private float hp;
+    private int hp;
+    /* knock back Resistance */
+    private int kp;
     private String perm;
     private boolean bind;
     private String owner;
@@ -33,7 +35,8 @@ public class Bauble {
     @Nonnull
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
         if (type != null) compound.setByte("type", (byte) type.ordinal());
-        compound.setFloat("hp", hp);
+        compound.setInteger("hp", hp);
+        compound.setInteger("kp", kp);
         if (perm != null && !perm.isEmpty()) compound.setString("perm", perm);
         compound.setBoolean("bind", bind);
         if (owner != null && !owner.isEmpty()) compound.setString("owner", owner);
@@ -55,6 +58,7 @@ public class Bauble {
     public void readFromNBT(NBTTagCompound compound) {
         type = null;
         hp = 0;
+        kp = 0;
         perm = null;
         bind = false;
         owner = null;
@@ -63,7 +67,8 @@ public class Bauble {
         effects = null;
         if (compound != null) {
             if (compound.hasKey("type")) setType(compound.getByte("type"));
-            if (compound.hasKey("hp")) setHp(compound.getFloat("hp"));
+            if (compound.hasKey("hp")) setHP(compound.getInteger("hp"));
+            if (compound.hasKey("kp")) setKP(compound.getInteger("kp"));
             if (compound.hasKey("perm")) setPerm(compound.getString("perm"));
             if (compound.hasKey("bind")) setBind(compound.getBoolean("bind"));
             if (compound.hasKey("owner")) setOwner(compound.getString("owner"));
@@ -71,7 +76,7 @@ public class Bauble {
             if (compound.hasKey("effects", 9)) {
                 NBTTagList list = compound.getTagList("effects", 10);
                 if (list.tagCount() > 0) {
-                    effects = new ArrayList<>();
+                    effects = new LinkedHashSet<>();
                     for (int i = 0; i < list.tagCount(); i++) {
                         NBTTagCompound potion = list.getCompoundTagAt(i);
                         effects.add(new EffectPotion(potion.getByte("id"), potion.getByte("lvl")));
@@ -82,7 +87,7 @@ public class Bauble {
     }
 
     @Nonnull
-    public List<EffectPotion> getEffects() {
+    public Set<EffectPotion> getEffects() {
         return effects == null ? EMPTY : effects;
     }
 
@@ -108,7 +113,7 @@ public class Bauble {
     }
 
     public void addEffect(@Nonnull EffectPotion effect) {
-        if (effects == null) effects = new ArrayList<>();
+        if (effects == null) effects = new LinkedHashSet<>();
         effects.add(effect);
     }
 
@@ -121,6 +126,7 @@ public class Bauble {
         Bauble bauble = new Bauble();
         bauble.type = type;
         bauble.hp = hp;
+        bauble.kp = kp;
         bauble.perm = perm;
         bauble.bind = bind;
         bauble.owner = owner;
@@ -130,12 +136,20 @@ public class Bauble {
         return bauble;
     }
 
-    public void setHp(float hp) {
+    public void setHP(int hp) {
         this.hp = hp;
     }
 
-    public float getHP() {
+    public int getHP() {
         return this.hp;
+    }
+
+    public void setKP(int kp) {
+        this.kp = kp;
+    }
+
+    public int getKP() {
+        return this.kp;
     }
 
     public String getPerm() {

@@ -48,7 +48,21 @@ public class CommandBauble extends IICommand {
                     player.addChatMessage(I19n.translate("baubleHP", bauble.getHP()));
                 } else {
                     try {
-                        bauble.setHp(Float.valueOf(args.get(0)));
+                        bauble.setHP(Integer.valueOf(args.get(0)));
+                    } catch (Throwable e) {
+                        player.addChatMessage(I19n.translate("invalidFloat"));
+                    }
+                }
+            }
+        });
+        addSub(new SubCommand("knock", "kp") {
+            @Override
+            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+                if (args.isEmpty()) {
+                    player.addChatMessage(I19n.translate("baubleKP", bauble.getKP()));
+                } else {
+                    try {
+                        bauble.setKP(Integer.valueOf(args.get(0)));
                     } catch (Throwable e) {
                         player.addChatMessage(I19n.translate("invalidFloat"));
                     }

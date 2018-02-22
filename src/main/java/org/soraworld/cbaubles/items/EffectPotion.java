@@ -8,4 +8,9 @@ public class EffectPotion {
         this.id = id;
         this.lvl = lvl;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof EffectPotion && this.id == ((EffectPotion) obj).id;
+    }
 }
