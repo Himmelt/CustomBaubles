@@ -2,6 +2,7 @@ package org.soraworld.cbaubles.command;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import org.soraworld.cbaubles.constant.Constants;
@@ -125,6 +126,9 @@ public class CommandBauble extends IICommand {
                     bauble.setIcon(null);
                 } else {
                     bauble.setIcon(stack);
+                }
+                if (player instanceof EntityPlayerMP) {
+                    ((EntityPlayerMP) player).updateHeldItem();
                 }
             }
         });

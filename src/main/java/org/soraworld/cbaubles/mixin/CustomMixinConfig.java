@@ -1,6 +1,7 @@
 package org.soraworld.cbaubles.mixin;
 
 import org.spongepowered.asm.lib.tree.ClassNode;
+import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
@@ -10,6 +11,9 @@ import java.util.Set;
 import static org.soraworld.cbaubles.constant.Constants.LOGGER;
 
 public class CustomMixinConfig implements IMixinConfigPlugin {
+
+    private MixinEnvironment env;
+
     @Override
     public void onLoad(String mixinPackage) {
     }
@@ -20,9 +24,17 @@ public class CustomMixinConfig implements IMixinConfigPlugin {
     }
 
     @Override
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        LOGGER.info("Mixin " + mixinClassName + " -> " + targetClassName);
-        return true;
+    public boolean shouldApplyMixin(String target, String mixin) {
+        if (env == null) {
+            env = MixinEnvironment.getCurrentEnvironment();
+        }
+        if (env.getSide() == MixinEnvironment.Side.SERVER && target.contains("client")) {
+            LOGGER.info("Mixin Skip Client Class " + mixin + " -> " + target);
+            return false;
+        } else {
+            LOGGER.info("Mixin " + mixin + " -> " + target);
+            return true;
+        }
     }
 
     @Override

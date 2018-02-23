@@ -1,6 +1,7 @@
 {
   "package": "org.soraworld.cbaubles.mixin",
   "plugin": "org.soraworld.cbaubles.mixin.CustomMixinConfig",
+  "minVersion": "0.7.6",
   "mixins": [
     "item.MixinItemStack",
     "client.renderer.MixinItemRenderer",

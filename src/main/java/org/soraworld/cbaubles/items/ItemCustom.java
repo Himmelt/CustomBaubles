@@ -22,7 +22,7 @@ public class ItemCustom extends Item implements IBauble {
         this.registerName = registerName;
         this.setTextureName(Constants.MOD_ID + ":" + registerName);
         this.setUnlocalizedName(registerName);
-        this.setMaxStackSize(1);
+        this.setMaxStackSize(16);
         this.setMaxDamage(10);
         this.setCreativeTab(CreativeTabs.tabTools);
     }
