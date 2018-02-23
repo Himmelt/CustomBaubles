@@ -23,7 +23,7 @@ public class Bauble {
     private BaubleType type;
     private int hp;
     /* knock back Resistance */
-    private int kp;
+    private byte kp;
     private String perm;
     private boolean bind;
     private String owner;
@@ -36,7 +36,7 @@ public class Bauble {
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
         if (type != null) compound.setByte("type", (byte) type.ordinal());
         compound.setInteger("hp", hp);
-        compound.setInteger("kp", kp);
+        compound.setByte("kp", kp);
         if (perm != null && !perm.isEmpty()) compound.setString("perm", perm);
         compound.setBoolean("bind", bind);
         if (owner != null && !owner.isEmpty()) compound.setString("owner", owner);
@@ -68,7 +68,7 @@ public class Bauble {
         if (compound != null) {
             if (compound.hasKey("type")) setType(compound.getByte("type"));
             if (compound.hasKey("hp")) setHP(compound.getInteger("hp"));
-            if (compound.hasKey("kp")) setKP(compound.getInteger("kp"));
+            if (compound.hasKey("kp")) setKP(compound.getByte("kp"));
             if (compound.hasKey("perm")) setPerm(compound.getString("perm"));
             if (compound.hasKey("bind")) setBind(compound.getBoolean("bind"));
             if (compound.hasKey("owner")) setOwner(compound.getString("owner"));
@@ -79,7 +79,9 @@ public class Bauble {
                     effects = new LinkedHashSet<>();
                     for (int i = 0; i < list.tagCount(); i++) {
                         NBTTagCompound potion = list.getCompoundTagAt(i);
-                        effects.add(new EffectPotion(potion.getByte("id"), potion.getByte("lvl")));
+                        EffectPotion effect = new EffectPotion(potion.getByte("id"), potion.getByte("lvl"));
+                        effects.remove(effect);
+                        if (effect.lvl >= 0) effects.add(effect);
                     }
                 }
             }
@@ -114,7 +116,8 @@ public class Bauble {
 
     public void addEffect(@Nonnull EffectPotion effect) {
         if (effects == null) effects = new LinkedHashSet<>();
-        effects.add(effect);
+        effects.remove(effect);
+        if (effect.lvl >= 0) effects.add(effect);
     }
 
     @Override
@@ -144,11 +147,11 @@ public class Bauble {
         return this.hp;
     }
 
-    public void setKP(int kp) {
+    public void setKP(byte kp) {
         this.kp = kp;
     }
 
-    public int getKP() {
+    public byte getKP() {
         return this.kp;
     }
 

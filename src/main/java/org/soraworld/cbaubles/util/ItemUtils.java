@@ -3,10 +3,11 @@ package org.soraworld.cbaubles.util;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import org.soraworld.cbaubles.constant.Constants;
 import org.soraworld.cbaubles.items.Bauble;
 import org.soraworld.cbaubles.items.IItemStack;
 
-@SideOnly(Side.CLIENT)
 public final class ItemUtils {
 
     @SideOnly(Side.CLIENT)
@@ -19,4 +20,12 @@ public final class ItemUtils {
         }
         return itemStack;
     }
+
+    public static void updateHeldItem(ItemStack stack, Bauble bauble) {
+        if (stack != null && bauble != null) {
+            if (stack.stackTagCompound == null) stack.stackTagCompound = new NBTTagCompound();
+            stack.stackTagCompound.setTag(Constants.TAG_CUSTOM, bauble.writeToNBT(new NBTTagCompound()));
+        }
+    }
+
 }

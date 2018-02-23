@@ -1,6 +1,7 @@
 package org.soraworld.cbaubles.items;
 
 public class EffectPotion {
+
     public byte id;
     public byte lvl;
 
@@ -12,5 +13,10 @@ public class EffectPotion {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof EffectPotion && this.id == ((EffectPotion) obj).id;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
     }
 }

@@ -3,7 +3,6 @@ package org.soraworld.cbaubles.command;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import org.soraworld.cbaubles.constant.Constants;
 import org.soraworld.cbaubles.items.Bauble;
@@ -11,6 +10,7 @@ import org.soraworld.cbaubles.items.EffectPotion;
 import org.soraworld.cbaubles.items.IItemStack;
 import org.soraworld.cbaubles.items.ItemCustom;
 import org.soraworld.cbaubles.util.I19n;
+import org.soraworld.cbaubles.util.ItemUtils;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -73,9 +73,9 @@ public class CommandBauble extends IICommand {
                     player.addChatMessage(I19n.translate("baubleKP", bauble.getKP()));
                 } else {
                     try {
-                        bauble.setKP(Integer.valueOf(args.get(0)));
+                        bauble.setKP(Byte.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidFloat"));
+                        player.addChatMessage(I19n.translate("invalidByte"));
                     }
                 }
             }
@@ -137,10 +137,6 @@ public class CommandBauble extends IICommand {
                 } else {
                     bauble.setIcon(stack);
                 }
-                stack = player.getHeldItem();
-                if (stack != null && stack.stackTagCompound != null) {
-                    stack.stackTagCompound.setTag(Constants.TAG_CUSTOM, bauble.writeToNBT(new NBTTagCompound()));
-                }
             }
         });
     }
@@ -155,6 +151,7 @@ public class CommandBauble extends IICommand {
                     IICommand sub = subMap.get(args.remove(0));
                     if (sub instanceof SubCommand) {
                         ((SubCommand) sub).execute(bauble, (EntityPlayerMP) sender, args);
+                        ItemUtils.updateHeldItem(((EntityPlayerMP) sender).getHeldItem(), bauble);
                     } else if (sub != null) {
                         sub.execute(sender, args);
                     }

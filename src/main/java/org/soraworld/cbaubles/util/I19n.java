@@ -1,7 +1,10 @@
 package org.soraworld.cbaubles.util;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.*;
+import org.soraworld.cbaubles.constant.Constants;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -105,6 +108,11 @@ public class I19n {
 
     public static IChatComponent translate(String key, Object... args) {
         return new ChatComponentTranslation(key, args);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static String format(String text, Object... args) {
+        return I18n.format(text, args).replace('&', Constants.COLOR_CHAR);
     }
 
 }

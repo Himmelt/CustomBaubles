@@ -3,15 +3,22 @@ package org.soraworld.cbaubles.items;
 import com.azanor.baubles.api.BaubleType;
 import com.azanor.baubles.api.BaublesApi;
 import com.azanor.baubles.api.IBauble;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import org.soraworld.cbaubles.constant.Constants;
+import org.soraworld.cbaubles.util.I19n;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemCustom extends Item implements IBauble {
 
@@ -94,6 +101,27 @@ public class ItemCustom extends Item implements IBauble {
             }
         }
         return stack;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean advanced) {
+        if (stack != null && list != null) {
+            Bauble bauble = ((IItemStack) (Object) stack).getBauble();
+            if (bauble != null) {
+                ArrayList<String> tips = new ArrayList<>();
+                tips.add(I19n.format("tooltip.type." + bauble.getType()));
+                tips.add(I19n.format("tooltip.hp", bauble.getHP()));
+                tips.add(I19n.format("tooltip.kp", bauble.getKP()));
+                if (advanced && bauble.getPerm() != null) tips.add(I19n.format("tooltip.perm", bauble.getPerm()));
+                tips.add(I19n.format("tooltip.bind." + bauble.bind()));
+                if (bauble.getOwner() != null) tips.add(I19n.format("tooltip.owner", bauble.getOwner()));
+                for (EffectPotion potion : bauble.getEffects()) {
+                    tips.add(I19n.format("tooltip.effect") + I19n.format(Potion.potionTypes[potion.id].getName()) + " " + potion.lvl);
+                }
+                list.addAll(tips);
+            }
+        }
     }
 
     public String getRegisterName() {
