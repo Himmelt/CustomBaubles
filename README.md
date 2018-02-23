@@ -1,6 +1,8 @@
 # CustomBaubles
 CustomBaubles
 
+displayName
+
 Renderer:
 inventory:
 RenderItem.renderItemAndEffectIntoGui

@@ -1,9 +1,9 @@
 package org.soraworld.cbaubles.command;
 
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import org.soraworld.cbaubles.constant.Constants;
 import org.soraworld.cbaubles.items.Bauble;
@@ -19,9 +19,19 @@ public class CommandBauble extends IICommand {
 
     public CommandBauble() {
         super(Constants.MOD_ID, "bauble");
+        addSub(new SubCommand("display") {
+            @Override
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
+                if (args.isEmpty()) {
+                    player.addChatMessage(I19n.translate("baubleDisplay"));
+                } else {
+                    player.getHeldItem().setStackDisplayName(args.get(0).replace('&', Constants.COLOR_CHAR));
+                }
+            }
+        });
         addSub(new SubCommand("type") {
             @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("baubleType", I19n.translate(bauble.getType().name())));
                 } else {
@@ -44,7 +54,7 @@ public class CommandBauble extends IICommand {
         });
         addSub(new SubCommand("health", "hp") {
             @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("baubleHP", bauble.getHP()));
                 } else {
@@ -58,7 +68,7 @@ public class CommandBauble extends IICommand {
         });
         addSub(new SubCommand("knock", "kp") {
             @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("baubleKP", bauble.getKP()));
                 } else {
@@ -72,7 +82,7 @@ public class CommandBauble extends IICommand {
         });
         addSub(new SubCommand("perm") {
             @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("baublePerm", bauble.getPerm()));
                 } else {
@@ -86,7 +96,7 @@ public class CommandBauble extends IICommand {
         });
         addSub(new SubCommand("bind") {
             @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("baubleBind", bauble.bind()));
                 } else {
@@ -100,7 +110,7 @@ public class CommandBauble extends IICommand {
         });
         addSub(new SubCommand("effect") {
             @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("baubleEffects"));
                 } else if (args.size() == 1) {
@@ -120,15 +130,16 @@ public class CommandBauble extends IICommand {
         });
         addSub(new SubCommand("icon") {
             @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args) {
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 ItemStack stack = player.inventory.getStackInSlot(1);
                 if (stack == null || stack.getItem() instanceof ItemCustom) {
                     bauble.setIcon(null);
                 } else {
                     bauble.setIcon(stack);
                 }
-                if (player instanceof EntityPlayerMP) {
-                    ((EntityPlayerMP) player).updateHeldItem();
+                stack = player.getHeldItem();
+                if (stack != null && stack.stackTagCompound != null) {
+                    stack.stackTagCompound.setTag(Constants.TAG_CUSTOM, bauble.writeToNBT(new NBTTagCompound()));
                 }
             }
         });
@@ -137,13 +148,15 @@ public class CommandBauble extends IICommand {
     @Override
     public void execute(ICommandSender sender, ArrayList<String> args) {
         if (args.size() >= 1) {
-            if (sender instanceof EntityPlayer) {
-                ItemStack itemStack = ((EntityPlayer) sender).getHeldItem();
+            if (sender instanceof EntityPlayerMP) {
+                ItemStack itemStack = ((EntityPlayerMP) sender).getHeldItem();
                 if (itemStack != null && itemStack.getItem() instanceof ItemCustom) {
                     Bauble bauble = ((IItemStack) (Object) itemStack).getOrCreateBauble();
                     IICommand sub = subMap.get(args.remove(0));
                     if (sub instanceof SubCommand) {
-                        ((SubCommand) sub).execute(bauble, (EntityPlayer) sender, args);
+                        ((SubCommand) sub).execute(bauble, (EntityPlayerMP) sender, args);
+                    } else if (sub != null) {
+                        sub.execute(sender, args);
                     }
                 } else {
                     sender.addChatMessage(I19n.translate("emptyHand"));

@@ -16,6 +16,8 @@ public final class Constants {
     public static final String TAG_ITEM = "item";
     public static final String TAG_EFFECT = "effect";
 
+    public static final char COLOR_CHAR = '\u00A7';
+
     public static Logger LOGGER = LogManager.getLogger(NAME);
 
 }

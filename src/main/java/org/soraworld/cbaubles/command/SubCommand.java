@@ -1,6 +1,6 @@
 package org.soraworld.cbaubles.command;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import org.soraworld.cbaubles.items.Bauble;
 
 import javax.annotation.Nonnull;
@@ -12,6 +12,6 @@ public abstract class SubCommand extends IICommand {
         super(name, aliases);
     }
 
-    public abstract void execute(@Nonnull Bauble bauble, EntityPlayer player, ArrayList<String> args);
+    public abstract void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args);
 
 }
