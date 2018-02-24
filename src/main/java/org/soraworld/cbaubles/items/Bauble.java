@@ -19,29 +19,35 @@ import static org.soraworld.cbaubles.constant.Constants.LOGGER;
 public class Bauble {
 
     private LinkedHashSet<EffectPotion> effects;
-    private static final Set<EffectPotion> EMPTY = new LinkedHashSet<>();
     private BaubleType type;
-    private int hp;
-    /* knock back Resistance */
-    private byte kp;
+    private Item item;
+    private int damage;
     private String perm;
     private boolean bind;
     private String owner;
-    private Item item;
-    private int damage;
+    /* maxHealth */
+    private int hp;
+    /* attackDamage */
+    private float at;
+    /* knockbackResistance */
+    private byte kb;
+
+    private static final Set<EffectPotion> EMPTY = new LinkedHashSet<>();
 
     private static final PermissionManager pm = PermissionManager.getPermissionManager();
 
     @Nonnull
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
         if (type != null) compound.setByte("type", (byte) type.ordinal());
-        compound.setInteger("hp", hp);
-        compound.setByte("kp", kp);
+        if (item != null && !(item instanceof ItemCustom)) {
+            compound.setString("icon", Item.getIdFromItem(item) + "/" + damage);
+        }
         if (perm != null && !perm.isEmpty()) compound.setString("perm", perm);
         compound.setBoolean("bind", bind);
-        if (owner != null && !owner.isEmpty()) compound.setString("owner", owner);
-        if (item != null && !(item instanceof ItemCustom))
-            compound.setString("icon", Item.getIdFromItem(item) + "/" + damage);
+        if (bind && owner != null && !owner.isEmpty()) compound.setString("owner", owner);
+        compound.setInteger("hp", hp);
+        compound.setFloat("at", at);
+        compound.setByte("kb", kb);
         if (effects != null && !effects.isEmpty()) {
             NBTTagList list = new NBTTagList();
             for (EffectPotion effect : effects) {
@@ -57,22 +63,24 @@ public class Bauble {
 
     public void readFromNBT(NBTTagCompound compound) {
         type = null;
-        hp = 0;
-        kp = 0;
+        item = null;
+        damage = 0;
         perm = null;
         bind = false;
         owner = null;
-        item = null;
-        damage = 0;
+        hp = 0;
+        kb = 0;
+        at = 0;
         effects = null;
         if (compound != null) {
             if (compound.hasKey("type")) setType(compound.getByte("type"));
-            if (compound.hasKey("hp")) setHP(compound.getInteger("hp"));
-            if (compound.hasKey("kp")) setKP(compound.getByte("kp"));
+            if (compound.hasKey("icon")) setIcon(compound.getString("icon"));
             if (compound.hasKey("perm")) setPerm(compound.getString("perm"));
             if (compound.hasKey("bind")) setBind(compound.getBoolean("bind"));
-            if (compound.hasKey("owner")) setOwner(compound.getString("owner"));
-            if (compound.hasKey("icon")) setIcon(compound.getString("icon"));
+            if (bind && compound.hasKey("owner")) setOwner(compound.getString("owner"));
+            if (compound.hasKey("hp")) setHP(compound.getInteger("hp"));
+            if (compound.hasKey("at")) setAT(compound.getFloat("at"));
+            if (compound.hasKey("kb")) setKB(compound.getByte("kb"));
             if (compound.hasKey("effects", 9)) {
                 NBTTagList list = compound.getTagList("effects", 10);
                 if (list.tagCount() > 0) {
@@ -120,21 +128,17 @@ public class Bauble {
         if (effect.lvl >= 0) effects.add(effect);
     }
 
-    @Override
-    public String toString() {
-        return "[" + type + "/" + hp + "/" + perm + "/" + bind + "/" + owner + "/" + item + "/" + damage + "]";
-    }
-
     public Bauble copy() {
         Bauble bauble = new Bauble();
         bauble.type = type;
-        bauble.hp = hp;
-        bauble.kp = kp;
-        bauble.perm = perm;
-        bauble.bind = bind;
-        bauble.owner = owner;
         bauble.item = item;
         bauble.damage = damage;
+        bauble.perm = perm;
+        bauble.bind = bind;
+        if (bind) bauble.owner = owner;
+        bauble.hp = hp;
+        bauble.at = at;
+        bauble.kb = kb;
         bauble.effects = effects;
         return bauble;
     }
@@ -147,12 +151,12 @@ public class Bauble {
         return this.hp;
     }
 
-    public void setKP(byte kp) {
-        this.kp = kp;
+    public void setKB(byte kb) {
+        this.kb = kb;
     }
 
-    public byte getKP() {
-        return this.kp;
+    public byte getKB() {
+        return this.kb;
     }
 
     public String getPerm() {
@@ -173,6 +177,7 @@ public class Bauble {
 
     public void setBind(boolean bind) {
         this.bind = bind;
+        if (!bind) this.owner = null;
     }
 
     public boolean bind() {
@@ -219,4 +224,11 @@ public class Bauble {
         }
     }
 
+    public float getAT() {
+        return at;
+    }
+
+    public void setAT(float at) {
+        this.at = at;
+    }
 }

@@ -5,6 +5,7 @@ import com.azanor.baubles.api.BaublesApi;
 import com.azanor.baubles.api.IBauble;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -111,13 +112,28 @@ public class ItemCustom extends Item implements IBauble {
             if (bauble != null) {
                 ArrayList<String> tips = new ArrayList<>();
                 tips.add(I19n.format("tooltip.type." + bauble.getType()));
-                tips.add(I19n.format("tooltip.hp", bauble.getHP()));
-                tips.add(I19n.format("tooltip.kp", bauble.getKP()));
-                if (advanced && bauble.getPerm() != null) tips.add(I19n.format("tooltip.perm", bauble.getPerm()));
-                tips.add(I19n.format("tooltip.bind." + bauble.bind()));
-                if (bauble.getOwner() != null) tips.add(I19n.format("tooltip.owner", bauble.getOwner()));
-                for (EffectPotion potion : bauble.getEffects()) {
-                    tips.add(I19n.format("tooltip.effect") + I19n.format(Potion.potionTypes[potion.id].getName()) + " " + potion.lvl);
+                if (bauble.getPerm() != null && !bauble.getPerm().isEmpty()) {
+                    tips.add(I19n.format("tooltip.perm", bauble.getPerm()));
+                }
+                if (bauble.bind()) {
+                    if (bauble.getOwner() != null && !bauble.getOwner().isEmpty()) {
+                        tips.add(I19n.format("tooltip.owner", bauble.getOwner()));
+                    } else {
+                        tips.add(I19n.format("tooltip.bind.can"));
+                    }
+                }
+                //else {
+                //    tips.add(I19n.format("tooltip.bind.cant"));
+                //}
+                if (bauble.getHP() != 0) tips.add(I19n.format("tooltip.hp", bauble.getHP()));
+                if (bauble.getAT() != 0) tips.add(I19n.format("tooltip.at", bauble.getAT()));
+                if (bauble.getKB() > 0) tips.add(I19n.format("tooltip.kb", bauble.getKB()));
+                if (GuiScreen.isShiftKeyDown()) {
+                    for (EffectPotion potion : bauble.getEffects()) {
+                        tips.add(I19n.format("tooltip.effect") + I19n.format(Potion.potionTypes[potion.id].getName()) + " " + potion.lvl);
+                    }
+                } else if (bauble.getEffects().size() > 0) {
+                    tips.add(I19n.format("tooltip.effect.hide", bauble.getEffects().size()));
                 }
                 list.addAll(tips);
             }

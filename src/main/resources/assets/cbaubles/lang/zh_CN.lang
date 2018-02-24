@@ -1,15 +1,18 @@
 
-tooltip.type.null=&b饰品类型：    未  知
-tooltip.type.RING=&b饰品类型：    指  环
-tooltip.type.AMULET=&b饰品类型：    护身符
-tooltip.type.BELT=&b饰品类型：    腰  带
+item.custombauble.name=自定义饰品
 
-tooltip.hp=&c佩戴效果：提升 %d 生命值
-tooltip.kp=&c佩戴效果：提升 %d %% 机率抵抗击退
-tooltip.perm=&e使用权限：%s
-tooltip.bind.true=&2已启用绑定
-tooltip.bind.false=&2未启用绑定
+tooltip.type.null=&b饰品类型:  未  知
+tooltip.type.RING=&b饰品类型:  指  环
+tooltip.type.AMULET=&b饰品类型:  护身符
+tooltip.type.BELT=&b饰品类型:  腰  带
 
-tooltip.owner=&5物品绑定对象 &6%s
+tooltip.perm=&e使用权限:  &2%s
+tooltip.owner=&5物品绑定:  &6%s
+tooltip.bind.can=&2可以绑定
+tooltip.bind.cant=&c不可绑定
 
-tooltip.effect=&e佩戴效果：&r
+tooltip.hp=&a佩戴效果:  提升 %d 最大生命
+tooltip.at=&a佩戴效果:  提升 %f 基础攻击
+tooltip.kb=&a佩戴效果:  提升 %d%% 免疫击退
+tooltip.effect=&e佩戴效果:  &2
+tooltip.effect.hide=&7佩戴效果:  x %d <按shift查看详情>

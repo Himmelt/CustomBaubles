@@ -52,31 +52,14 @@ public class CommandBauble extends IICommand {
                 }
             }
         });
-        addSub(new SubCommand("health", "hp") {
+        addSub(new SubCommand("icon") {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
-                if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleHP", bauble.getHP()));
+                ItemStack stack = player.inventory.getStackInSlot(1);
+                if (stack == null || stack.getItem() instanceof ItemCustom) {
+                    bauble.setIcon(null);
                 } else {
-                    try {
-                        bauble.setHP(Integer.valueOf(args.get(0)));
-                    } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidFloat"));
-                    }
-                }
-            }
-        });
-        addSub(new SubCommand("knock", "kp") {
-            @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
-                if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleKP", bauble.getKP()));
-                } else {
-                    try {
-                        bauble.setKP(Byte.valueOf(args.get(0)));
-                    } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidByte"));
-                    }
+                    bauble.setIcon(stack);
                 }
             }
         });
@@ -86,7 +69,7 @@ public class CommandBauble extends IICommand {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("baublePerm", bauble.getPerm()));
                 } else {
-                    if (args.get(0).isEmpty() || args.get(0).equals("null")) {
+                    if (args.get(0).isEmpty() || args.get(0).equals("remove")) {
                         bauble.setPerm(null);
                     } else {
                         bauble.setPerm(args.get(0));
@@ -108,6 +91,48 @@ public class CommandBauble extends IICommand {
                 }
             }
         });
+        addSub(new SubCommand("health", "hp") {
+            @Override
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
+                if (args.isEmpty()) {
+                    player.addChatMessage(I19n.translate("baubleHP", bauble.getHP()));
+                } else {
+                    try {
+                        bauble.setHP(Integer.valueOf(args.get(0)));
+                    } catch (Throwable e) {
+                        player.addChatMessage(I19n.translate("invalidFloat"));
+                    }
+                }
+            }
+        });
+        addSub(new SubCommand("knock", "kb") {
+            @Override
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
+                if (args.isEmpty()) {
+                    player.addChatMessage(I19n.translate("baubleKB", bauble.getKB()));
+                } else {
+                    try {
+                        bauble.setKB(Byte.valueOf(args.get(0)));
+                    } catch (Throwable e) {
+                        player.addChatMessage(I19n.translate("invalidByte"));
+                    }
+                }
+            }
+        });
+        addSub(new SubCommand("attack", "at") {
+            @Override
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
+                if (args.isEmpty()) {
+                    player.addChatMessage(I19n.translate("baubleAT", bauble.getAT()));
+                } else {
+                    try {
+                        bauble.setAT(Float.valueOf(args.get(0)));
+                    } catch (Throwable e) {
+                        player.addChatMessage(I19n.translate("invalidFloat"));
+                    }
+                }
+            }
+        });
         addSub(new SubCommand("effect") {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
@@ -125,17 +150,6 @@ public class CommandBauble extends IICommand {
                     } catch (Throwable e) {
                         player.addChatMessage(I19n.translate("invalidByte"));
                     }
-                }
-            }
-        });
-        addSub(new SubCommand("icon") {
-            @Override
-            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
-                ItemStack stack = player.inventory.getStackInSlot(1);
-                if (stack == null || stack.getItem() instanceof ItemCustom) {
-                    bauble.setIcon(null);
-                } else {
-                    bauble.setIcon(stack);
                 }
             }
         });
