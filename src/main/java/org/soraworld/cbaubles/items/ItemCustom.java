@@ -1,8 +1,8 @@
 package org.soraworld.cbaubles.items;
 
-import com.azanor.baubles.api.BaubleType;
-import com.azanor.baubles.api.BaublesApi;
-import com.azanor.baubles.api.IBauble;
+import baubles.api.BaubleType;
+import baubles.api.BaublesApi;
+import baubles.api.IBauble;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;

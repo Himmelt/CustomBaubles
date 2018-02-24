@@ -1,6 +1,6 @@
 package org.soraworld.cbaubles.handler;
 
-import com.azanor.baubles.api.BaublesApi;
+import baubles.api.BaublesApi;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.SharedMonsterAttributes;

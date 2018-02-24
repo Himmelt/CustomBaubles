@@ -1,6 +1,6 @@
 package org.soraworld.cbaubles.items;
 
-import com.azanor.baubles.api.BaubleType;
+import baubles.api.BaubleType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
