@@ -105,16 +105,16 @@ public class CommandBauble extends IICommand {
                 }
             }
         });
-        addSub(new SubCommand("knock", "kb") {
+        addSub(new SubCommand("speed", "sp") {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleKB", bauble.getKB()));
+                    player.addChatMessage(I19n.translate("baubleSP", bauble.getSP()));
                 } else {
                     try {
-                        bauble.setKB(Byte.valueOf(args.get(0)));
+                        bauble.setSP(Float.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidByte"));
+                        player.addChatMessage(I19n.translate("invalidFloat"));
                     }
                 }
             }
@@ -129,6 +129,20 @@ public class CommandBauble extends IICommand {
                         bauble.setAT(Float.valueOf(args.get(0)));
                     } catch (Throwable e) {
                         player.addChatMessage(I19n.translate("invalidFloat"));
+                    }
+                }
+            }
+        });
+        addSub(new SubCommand("knock", "kb") {
+            @Override
+            public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
+                if (args.isEmpty()) {
+                    player.addChatMessage(I19n.translate("baubleKB", bauble.getKB()));
+                } else {
+                    try {
+                        bauble.setKB(Byte.valueOf(args.get(0)));
+                    } catch (Throwable e) {
+                        player.addChatMessage(I19n.translate("invalidByte"));
                     }
                 }
             }

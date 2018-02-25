@@ -27,6 +27,8 @@ public class Bauble {
     private String owner;
     /* maxHealth */
     private int hp;
+    /* movementSpeed */
+    private float sp;
     /* attackDamage */
     private float at;
     /* knockbackResistance */
@@ -46,6 +48,7 @@ public class Bauble {
         compound.setBoolean("bind", bind);
         if (bind && owner != null && !owner.isEmpty()) compound.setString("owner", owner);
         compound.setInteger("hp", hp);
+        compound.setFloat("sp", sp);
         compound.setFloat("at", at);
         compound.setByte("kb", kb);
         if (effects != null && !effects.isEmpty()) {
@@ -69,8 +72,9 @@ public class Bauble {
         bind = false;
         owner = null;
         hp = 0;
-        kb = 0;
+        sp = 0;
         at = 0;
+        kb = 0;
         effects = null;
         if (compound != null) {
             if (compound.hasKey("type")) setType(compound.getByte("type"));
@@ -79,6 +83,7 @@ public class Bauble {
             if (compound.hasKey("bind")) setBind(compound.getBoolean("bind"));
             if (bind && compound.hasKey("owner")) setOwner(compound.getString("owner"));
             if (compound.hasKey("hp")) setHP(compound.getInteger("hp"));
+            if (compound.hasKey("sp")) setSP(compound.getFloat("sp"));
             if (compound.hasKey("at")) setAT(compound.getFloat("at"));
             if (compound.hasKey("kb")) setKB(compound.getByte("kb"));
             if (compound.hasKey("effects", 9)) {
@@ -137,6 +142,7 @@ public class Bauble {
         bauble.bind = bind;
         if (bind) bauble.owner = owner;
         bauble.hp = hp;
+        bauble.sp = sp;
         bauble.at = at;
         bauble.kb = kb;
         bauble.effects = effects;
@@ -149,6 +155,22 @@ public class Bauble {
 
     public int getHP() {
         return this.hp;
+    }
+
+    public void setSP(float sp) {
+        this.sp = sp;
+    }
+
+    public float getSP() {
+        return sp;
+    }
+
+    public void setAT(float at) {
+        this.at = at;
+    }
+
+    public float getAT() {
+        return at;
     }
 
     public void setKB(byte kb) {
@@ -222,13 +244,5 @@ public class Bauble {
         } catch (Throwable e) {
             LOGGER.catching(e);
         }
-    }
-
-    public float getAT() {
-        return at;
-    }
-
-    public void setAT(float at) {
-        this.at = at;
     }
 }

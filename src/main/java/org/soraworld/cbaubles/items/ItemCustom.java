@@ -126,6 +126,7 @@ public class ItemCustom extends Item implements IBauble {
                 //    tips.add(I19n.format("tooltip.bind.cant"));
                 //}
                 if (bauble.getHP() != 0) tips.add(I19n.format("tooltip.hp", bauble.getHP()));
+                if (bauble.getSP() != 0) tips.add(I19n.format("tooltip.sp", bauble.getSP()));
                 if (bauble.getAT() != 0) tips.add(I19n.format("tooltip.at", bauble.getAT()));
                 if (bauble.getKB() > 0) tips.add(I19n.format("tooltip.kb", bauble.getKB()));
                 if (GuiScreen.isShiftKeyDown()) {
