@@ -1,5 +1,5 @@
 
-item.custombauble.name=§d§l花♂Q!!!
+item.custombauble.name=§d§l花♂Q ! ! !
 
 tooltip.type.null=&b饰品类型:  未  知
 tooltip.type.RING=&b饰品类型:  指  环
@@ -38,5 +38,4 @@ invalid.int=参数不是有效的int类型
 invalid.float=参数不是有效的float类型
 
 empty.hand=手持物不是有效饰品!
-only.player=该指令只能由游戏内玩家执行!
 empty.args=参数为空或格式不对!

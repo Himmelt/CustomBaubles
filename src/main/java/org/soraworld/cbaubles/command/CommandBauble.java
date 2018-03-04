@@ -25,9 +25,7 @@ public class CommandBauble extends IICommand {
                 if (args.isEmpty()) {
                     player.addChatMessage(I19n.translate("bauble.display", player.getHeldItem().getDisplayName()));
                 } else {
-                    ItemStack held = player.getHeldItem();
-                    ItemUtils.updateHeldItem(held, bauble);
-                    held.setStackDisplayName(args.get(0).replace('&', Constants.COLOR_CHAR));
+                    player.getHeldItem().setStackDisplayName(args.get(0).replace('&', Constants.COLOR_CHAR));
                 }
             }
         });
@@ -173,27 +171,27 @@ public class CommandBauble extends IICommand {
 
     @Override
     public void execute(ICommandSender sender, ArrayList<String> args) {
-        if (args.size() >= 1) {
-            if (sender instanceof EntityPlayerMP) {
-                ItemStack itemStack = ((EntityPlayerMP) sender).getHeldItem();
+        if (sender instanceof EntityPlayerMP) {
+            EntityPlayerMP player = (EntityPlayerMP) sender;
+            if (args.size() >= 1) {
+                ItemStack itemStack = player.getHeldItem();
                 if (itemStack != null && itemStack.getItem() instanceof ItemCustom) {
                     Bauble bauble = ((IItemStack) (Object) itemStack).getOrCreateBauble();
                     IICommand sub = subMap.get(args.remove(0));
                     if (sub instanceof SubCommand) {
-                        ((SubCommand) sub).execute(bauble, (EntityPlayerMP) sender, args);
-                        ItemUtils.updateHeldItem(itemStack, bauble);
+                        ((SubCommand) sub).execute(bauble, player, args);
+                        ItemUtils.updateHeldItem(player.getHeldItem(), bauble);
                     } else if (sub != null) {
-                        sub.execute(sender, args);
+                        sub.execute(player, args);
                     }
                 } else {
-                    sender.addChatMessage(I19n.translate("empty.hand"));
+                    player.addChatMessage(I19n.translate("empty.hand"));
                 }
             } else {
-                sender.addChatMessage(I19n.translate("only.player"));
+                player.addChatMessage(I19n.translate("empty.args"));
             }
         } else {
-            // TODO xxx
-            sender.addChatMessage(new ChatComponentText("empty.args"));
+            sender.addChatMessage(new ChatComponentText("Only player can execute this command !"));
         }
     }
 }

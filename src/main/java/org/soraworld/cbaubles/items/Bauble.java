@@ -245,4 +245,10 @@ public class Bauble {
             LOGGER.catching(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "[" + type + "/" + hp + "/" + perm + "/" + bind + "/" + owner + "/" + item + "/" + damage + "/" + getEffects().size() + "]";
+    }
+
 }
