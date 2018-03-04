@@ -1,5 +1,5 @@
 
-item.custombauble.name=自定义饰品
+item.custombauble.name=§d§l花♂Q!!!
 
 tooltip.type.null=&b饰品类型:  未  知
 tooltip.type.RING=&b饰品类型:  指  环
@@ -17,3 +17,26 @@ tooltip.at=&a佩戴效果:  提升 %f 基础攻击
 tooltip.kb=&a佩戴效果:  提升 %d%% 免疫击退
 tooltip.effect=&e佩戴效果:  &2
 tooltip.effect.hide=&7佩戴效果:  x %d <按shift查看详情>
+
+bauble.display=当前饰品显示名为: %s
+bauble.perm=当前饰品使用权限为: %s
+bauble.bind=当前饰品是否启用绑定: %s
+bauble.hp=当前饰品的生命提升为: %d
+bauble.sp=当前饰品的速度提升为: %f
+bauble.at=当前饰品的攻击提升为: %f
+bauble.kb=当前饰品的抗击退机率为: %d%%
+bauble.effects=当前饰品有%d种药水效果
+
+bauble.type.null=当前饰品类型:  未  知
+bauble.type.RING=当前饰品类型:  指  环
+bauble.type.AMULET=当前饰品类型:  护身符
+bauble.type.BELT=当前饰品类型:  腰  带
+
+invalid.bool=参数不是有效的bool类型
+invalid.byte=参数不是有效的byte类型
+invalid.int=参数不是有效的int类型
+invalid.float=参数不是有效的float类型
+
+empty.hand=手持物不是有效饰品!
+only.player=该指令只能由游戏内玩家执行!
+empty.args=参数为空或格式不对!

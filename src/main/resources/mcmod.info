@@ -11,9 +11,10 @@
       "Himmelt"
     ],
     "credits": "Himmelt, making this mod.",
+    "logoFile": "assets/cbaubles/logo.png",
     "screenshots": [],
     "dependencies": [
-      "baubles"
+      "Baubles"
     ]
   }
 ]

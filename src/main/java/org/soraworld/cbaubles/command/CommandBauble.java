@@ -18,14 +18,16 @@ import java.util.ArrayList;
 public class CommandBauble extends IICommand {
 
     public CommandBauble() {
-        super(Constants.MOD_ID, "bauble");
+        super(Constants.MOD_ID, "cbs");
         addSub(new SubCommand("display") {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleDisplay"));
+                    player.addChatMessage(I19n.translate("bauble.display", player.getHeldItem().getDisplayName()));
                 } else {
-                    player.getHeldItem().setStackDisplayName(args.get(0).replace('&', Constants.COLOR_CHAR));
+                    ItemStack held = player.getHeldItem();
+                    ItemUtils.updateHeldItem(held, bauble);
+                    held.setStackDisplayName(args.get(0).replace('&', Constants.COLOR_CHAR));
                 }
             }
         });
@@ -33,7 +35,7 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleType", I19n.translate(bauble.getType().name())));
+                    player.addChatMessage(I19n.translate("bauble.type." + bauble.getType()));
                 } else {
                     switch (args.get(0)) {
                         case "0":
@@ -67,7 +69,7 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baublePerm", bauble.getPerm()));
+                    player.addChatMessage(I19n.translate("bauble.perm", bauble.getPerm()));
                 } else {
                     if (args.get(0).isEmpty() || args.get(0).equals("remove")) {
                         bauble.setPerm(null);
@@ -81,12 +83,12 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleBind", bauble.bind()));
+                    player.addChatMessage(I19n.translate("bauble.bind", bauble.bind()));
                 } else {
                     try {
                         bauble.setBind(Boolean.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidBoolean"));
+                        player.addChatMessage(I19n.translate("invalid.bool"));
                     }
                 }
             }
@@ -95,12 +97,12 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleHP", bauble.getHP()));
+                    player.addChatMessage(I19n.translate("bauble.hp", bauble.getHP()));
                 } else {
                     try {
                         bauble.setHP(Integer.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidFloat"));
+                        player.addChatMessage(I19n.translate("invalid.int"));
                     }
                 }
             }
@@ -109,12 +111,12 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleSP", bauble.getSP()));
+                    player.addChatMessage(I19n.translate("bauble.sp", bauble.getSP()));
                 } else {
                     try {
                         bauble.setSP(Float.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidFloat"));
+                        player.addChatMessage(I19n.translate("invalid.float"));
                     }
                 }
             }
@@ -123,12 +125,12 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleAT", bauble.getAT()));
+                    player.addChatMessage(I19n.translate("bauble.at", bauble.getAT()));
                 } else {
                     try {
                         bauble.setAT(Float.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidFloat"));
+                        player.addChatMessage(I19n.translate("invalid.float"));
                     }
                 }
             }
@@ -137,12 +139,12 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleKB", bauble.getKB()));
+                    player.addChatMessage(I19n.translate("bauble.kb", bauble.getKB()));
                 } else {
                     try {
                         bauble.setKB(Byte.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidByte"));
+                        player.addChatMessage(I19n.translate("invalid.byte"));
                     }
                 }
             }
@@ -151,18 +153,18 @@ public class CommandBauble extends IICommand {
             @Override
             public void execute(@Nonnull Bauble bauble, EntityPlayerMP player, ArrayList<String> args) {
                 if (args.isEmpty()) {
-                    player.addChatMessage(I19n.translate("baubleEffects"));
+                    player.addChatMessage(I19n.translate("bauble.effects", bauble.getEffects().size()));
                 } else if (args.size() == 1) {
                     try {
                         bauble.addEffect(new EffectPotion(Byte.valueOf(args.get(0)), (byte) 0));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidByte"));
+                        player.addChatMessage(I19n.translate("invalid.byte"));
                     }
                 } else {
                     try {
                         bauble.addEffect(new EffectPotion(Byte.valueOf(args.get(0)), Byte.valueOf(args.get(1))));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalidByte"));
+                        player.addChatMessage(I19n.translate("invalid.byte"));
                     }
                 }
             }
@@ -179,19 +181,19 @@ public class CommandBauble extends IICommand {
                     IICommand sub = subMap.get(args.remove(0));
                     if (sub instanceof SubCommand) {
                         ((SubCommand) sub).execute(bauble, (EntityPlayerMP) sender, args);
-                        ItemUtils.updateHeldItem(((EntityPlayerMP) sender).getHeldItem(), bauble);
+                        ItemUtils.updateHeldItem(itemStack, bauble);
                     } else if (sub != null) {
                         sub.execute(sender, args);
                     }
                 } else {
-                    sender.addChatMessage(I19n.translate("emptyHand"));
+                    sender.addChatMessage(I19n.translate("empty.hand"));
                 }
             } else {
-                sender.addChatMessage(I19n.translate("onlyPlayer"));
+                sender.addChatMessage(I19n.translate("only.player"));
             }
         } else {
             // TODO xxx
-            sender.addChatMessage(new ChatComponentText("emptyArgs"));
+            sender.addChatMessage(new ChatComponentText("empty.args"));
         }
     }
 }
