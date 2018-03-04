@@ -96,6 +96,7 @@ public class ItemCustom extends Item implements IBauble {
                         if (!player.capabilities.isCreativeMode) {
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                         }
+                        // TODO still BUG
                         onEquipped(baubles.getStackInSlot(i), player);
                         break;
                     }
