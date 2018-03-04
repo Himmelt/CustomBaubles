@@ -147,7 +147,9 @@ public abstract class MixinItemStack implements IItemStack {
     @Override
     public Bauble getOrCreateBauble() {
         if (bauble == null) bauble = new Bauble();
-        bauble.readFromNBT(this.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM));
+        if (this.stackTagCompound != null && this.stackTagCompound.hasKey(Constants.TAG_CUSTOM)) {
+            bauble.readFromNBT(this.stackTagCompound.getCompoundTag(Constants.TAG_CUSTOM));
+        }
         return bauble;
     }
 }
