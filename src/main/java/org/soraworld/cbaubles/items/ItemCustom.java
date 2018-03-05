@@ -17,6 +17,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import org.soraworld.cbaubles.constant.Constants;
 import org.soraworld.cbaubles.util.I19n;
+import org.soraworld.cbaubles.util.ItemUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,8 @@ public class ItemCustom extends Item implements IBauble {
         this.registerName = registerName;
         this.setTextureName(Constants.MOD_ID + ":" + registerName);
         this.setUnlocalizedName(registerName);
-        this.setMaxStackSize(16);
-        this.setMaxDamage(10);
+        this.setMaxStackSize(1);
+        this.setMaxDamage(0);
         this.setCreativeTab(CreativeTabs.tabTools);
     }
 
@@ -65,6 +66,7 @@ public class ItemCustom extends Item implements IBauble {
             Bauble bauble = ((IItemStack) (Object) stack).getBauble();
             if (bauble != null && bauble.canBind()) {
                 bauble.setOwner(player.getCommandSenderName());
+                ItemUtils.updateBaubleToNBT(stack, bauble);
             }
         }
     }
@@ -96,7 +98,6 @@ public class ItemCustom extends Item implements IBauble {
                         if (!player.capabilities.isCreativeMode) {
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                         }
-                        // TODO still BUG
                         onEquipped(baubles.getStackInSlot(i), player);
                         break;
                     }

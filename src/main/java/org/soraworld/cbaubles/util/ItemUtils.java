@@ -21,7 +21,7 @@ public final class ItemUtils {
         return itemStack;
     }
 
-    public static void updateHeldItem(ItemStack stack, Bauble bauble) {
+    public static void updateBaubleToNBT(ItemStack stack, Bauble bauble) {
         if (stack != null && bauble != null) {
             if (stack.stackTagCompound == null) stack.stackTagCompound = new NBTTagCompound();
             stack.stackTagCompound.setTag(Constants.TAG_CUSTOM, bauble.writeToNBT(new NBTTagCompound()));

@@ -180,7 +180,7 @@ public class CommandBauble extends IICommand {
                     IICommand sub = subMap.get(args.remove(0));
                     if (sub instanceof SubCommand) {
                         ((SubCommand) sub).execute(bauble, player, args);
-                        ItemUtils.updateHeldItem(player.getHeldItem(), bauble);
+                        ItemUtils.updateBaubleToNBT(player.getHeldItem(), bauble);
                     } else if (sub != null) {
                         sub.execute(player, args);
                     }
