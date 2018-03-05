@@ -32,7 +32,7 @@ public class FMLEventHandler {
                     Bauble bauble = ((IItemStack) (Object) stack).getBauble();
                     if (bauble != null) {
                         maxHealth += bauble.getHP();
-                        moveSpeed += bauble.getSP();
+                        moveSpeed += bauble.getSP() / 100.D;
                         attackDamage += bauble.getAT();
                         knockResist += bauble.getKB() / 100.0D;
                     }

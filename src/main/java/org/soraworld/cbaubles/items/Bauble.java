@@ -28,7 +28,7 @@ public class Bauble {
     /* maxHealth */
     private int hp;
     /* movementSpeed */
-    private float sp;
+    private byte sp;
     /* attackDamage */
     private float at;
     /* knockbackResistance */
@@ -48,7 +48,7 @@ public class Bauble {
         compound.setBoolean("bind", bind);
         if (bind && owner != null && !owner.isEmpty()) compound.setString("owner", owner);
         compound.setInteger("hp", hp);
-        compound.setFloat("sp", sp);
+        compound.setByte("sp", sp);
         compound.setFloat("at", at);
         compound.setByte("kb", kb);
         if (effects != null && !effects.isEmpty()) {
@@ -83,7 +83,7 @@ public class Bauble {
             if (compound.hasKey("bind")) setBind(compound.getBoolean("bind"));
             if (bind && compound.hasKey("owner")) setOwner(compound.getString("owner"));
             if (compound.hasKey("hp")) setHP(compound.getInteger("hp"));
-            if (compound.hasKey("sp")) setSP(compound.getFloat("sp"));
+            if (compound.hasKey("sp")) setSP(compound.getByte("sp"));
             if (compound.hasKey("at")) setAT(compound.getFloat("at"));
             if (compound.hasKey("kb")) setKB(compound.getByte("kb"));
             if (compound.hasKey("effects", 9)) {
@@ -157,11 +157,11 @@ public class Bauble {
         return this.hp;
     }
 
-    public void setSP(float sp) {
+    public void setSP(byte sp) {
         this.sp = sp;
     }
 
-    public float getSP() {
+    public byte getSP() {
         return sp;
     }
 

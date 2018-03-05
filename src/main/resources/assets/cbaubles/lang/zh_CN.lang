@@ -12,7 +12,7 @@ tooltip.bind.can=&2可以绑定
 tooltip.bind.cant=&c不可绑定
 
 tooltip.hp=&a佩戴效果:  提升 %d 最大生命
-tooltip.sp=&a佩戴效果:  提升 %f 移动速度
+tooltip.sp=&a佩戴效果:  提升 %d 移动速度
 tooltip.at=&a佩戴效果:  提升 %f 基础攻击
 tooltip.kb=&a佩戴效果:  提升 %d%% 免疫击退
 tooltip.effect=&e佩戴效果:  &2
@@ -22,7 +22,7 @@ bauble.display=当前饰品显示名为: %s
 bauble.perm=当前饰品使用权限为: %s
 bauble.bind=当前饰品是否启用绑定: %s
 bauble.hp=当前饰品的生命提升为: %d
-bauble.sp=当前饰品的速度提升为: %f
+bauble.sp=当前饰品的速度提升为: %d
 bauble.at=当前饰品的攻击提升为: %f
 bauble.kb=当前饰品的抗击退机率为: %d%%
 bauble.effects=当前饰品有%d种药水效果

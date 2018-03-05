@@ -112,9 +112,9 @@ public class CommandBauble extends IICommand {
                     player.addChatMessage(I19n.translate("bauble.sp", bauble.getSP()));
                 } else {
                     try {
-                        bauble.setSP(Float.valueOf(args.get(0)));
+                        bauble.setSP(Byte.valueOf(args.get(0)));
                     } catch (Throwable e) {
-                        player.addChatMessage(I19n.translate("invalid.float"));
+                        player.addChatMessage(I19n.translate("invalid.byte"));
                     }
                 }
             }
