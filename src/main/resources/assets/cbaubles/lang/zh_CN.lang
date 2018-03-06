@@ -1,21 +1,21 @@
 
-item.custombauble.name=§d§l花♂Q ! ! !
+item.custombauble.name=§d花♂Q ! ! !
 
-tooltip.type.null=&b饰品类型:  未  知
-tooltip.type.RING=&b饰品类型:  指  环
-tooltip.type.AMULET=&b饰品类型:  护身符
-tooltip.type.BELT=&b饰品类型:  腰  带
+tooltip.type.null=&b饰品类型:  &e未  知
+tooltip.type.RING=&b饰品类型:  &e指  环
+tooltip.type.AMULET=&b饰品类型:  &e护身符
+tooltip.type.BELT=&b饰品类型:  &e腰  带
 
-tooltip.perm=&e使用权限:  &2%s
+tooltip.perm=&c使用权限:  &f%s
 tooltip.owner=&5物品绑定:  &6%s
-tooltip.bind.can=&2可以绑定
+tooltip.bind.can=&d可以绑定
 tooltip.bind.cant=&c不可绑定
 
-tooltip.hp=&a佩戴效果:  提升 %d 最大生命
-tooltip.sp=&a佩戴效果:  提升 %d 移动速度
-tooltip.at=&a佩戴效果:  提升 %f 基础攻击
-tooltip.kb=&a佩戴效果:  提升 %d%% 免疫击退
-tooltip.effect=&e佩戴效果:  &2
+tooltip.hp=&e佩戴效果:  &a提升 %d 最大生命
+tooltip.sp=&e佩戴效果:  &a提升 %d 移动速度
+tooltip.at=&e佩戴效果:  &a提升 %f 基础攻击
+tooltip.kb=&e佩戴效果:  &a提升 %d%% 免疫击退
+tooltip.effect=&e佩戴效果:  &a
 tooltip.effect.hide=&7佩戴效果:  x %d <按shift查看详情>
 
 bauble.display=当前饰品显示名为: %s

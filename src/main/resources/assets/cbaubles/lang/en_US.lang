@@ -1,4 +1,41 @@
-tooltip.type.null=&b饰品类型：    未  知
-tooltip.type.RING=&b饰品类型：    RING
-tooltip.type.AMULET=&b饰品类型：    AMULET
-tooltip.type.BELT=&b饰品类型：    BELT
+
+item.custombauble.name=§dFA♂Q ! ! !
+
+tooltip.type.null=&bBauble Type:  &eUNKNOWN
+tooltip.type.RING=&bBauble Type:  &eRING
+tooltip.type.AMULET=&bBauble Type:  &eAMULET
+tooltip.type.BELT=&bBauble Type:  &eBELT
+
+tooltip.perm=&cPermission:  &f%s
+tooltip.owner=&5Owner:  &6%s
+tooltip.bind.can=&dCan bind
+tooltip.bind.cant=&cCant bind
+
+tooltip.hp=&eWearing: &a add %d max health
+tooltip.sp=&eWearing: &a add %d move speed
+tooltip.at=&eWearing: &a add %f attack
+tooltip.kb=&eWearing: &a add %d%% knockback resist
+tooltip.effect=&eWearing:  &a
+tooltip.effect.hide=&7Potion Effects:  x %d <Press shift for more info>
+
+bauble.display=Current display name: %s
+bauble.perm=Current using permission: %s
+bauble.bind=Current bind status: %s
+bauble.hp=Current health up: %d
+bauble.sp=Current speed up: %d
+bauble.at=Current attack up: %f
+bauble.kb=Current knockback resist: %d%%
+bauble.effects=Current bauble has %d potion effects
+
+bauble.type.null=Current Bauble Type:  UNKNOWN
+bauble.type.RING=Current Bauble Type:  RING
+bauble.type.AMULET=Current Bauble Type:  AMULET
+bauble.type.BELT=Current Bauble Type:  BELT
+
+invalid.bool=Invalid bool arg
+invalid.byte=Invalid byte arg
+invalid.int=Invalid int arg
+invalid.float=Invalid float arg
+
+empty.hand=Invalid bauble in hand!
+empty.args=Args is empty or invalid!
