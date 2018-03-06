@@ -11,7 +11,7 @@
 /cbs perm remove                移除饰品使用权限
 /cbs bind [true|false]          查看/设置饰品是否允许绑定
 /cbs health|hp [整数(可负)]     查看/设置饰品生命属性
-/cbs speed|sp [小数(可负)]      查看/设置饰品移速属性
+/cbs speed|sp [整数(可负)]      查看/设置饰品移速属性
 /cbs attack|at [小数(可负)]     查看/设置饰品攻击属性
 /cbs knock|kb [整数(0-100)]     查看/设置饰品抗击退机率
 /cbs effect [id] [lvl]          添加/修改饰品药水效果及等级
