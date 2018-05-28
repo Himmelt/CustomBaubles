@@ -44,9 +44,9 @@ version = "1.7.10-1.0.1"
 group = "org.soraworld.cbaubles"
 archivesBaseName = "CustomBaubles"
 
-sourceCompatibility = targetCompatibility = "1.8"
+sourceCompatibility = targetCompatibility = 1.8
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.8"
+    sourceCompatibility = targetCompatibility = 1.8
 }
 
 minecraft {
